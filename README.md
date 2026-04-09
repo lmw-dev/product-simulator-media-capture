@@ -175,3 +175,34 @@ Do not platformize.
 Do not optimize for imaginary future complexity.
 
 This repository should remain a **focused execution project**, not a general framework.
+
+---
+
+## Usage
+
+### Prerequisites
+- Node.js (v18+)
+- Playwright
+
+```bash
+npm install
+```
+
+### Running the CLI
+Run the capture pipeline by providing a target URL:
+
+```bash
+node src/run-single-analysis.js --url "https://youtube.com/..."
+```
+
+Optional parameters:
+- `--headless`: Run the browser in the background. Defaults to true. (Use `--no-headless` or set `DEV_MODE=true` to see the browser).
+- `--url`: The target URL to analyze.
+
+### Authentication
+The capture process utilizes a Playwright `.auth` file. Create your authenticated session state and place the JSON output at `playwright/.auth/state.json` (or change `STORAGE_STATE_PATH` environment variable) to avoid manual logins during automated runs.
+
+### Configuration
+All Playwright selectors and basic definitions are explicitly isolated to ease future UI changes:
+- `src/config/app-config.js`
+- `src/config/selectors.js`

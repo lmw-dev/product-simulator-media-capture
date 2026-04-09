@@ -1,0 +1,20 @@
+{
+  "name": "18-product-simulator-media-capture",
+  "version": "1.0.0",
+  "description": "## What this project is",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "node src/run-single-analysis.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "playwright": "^1.59.1",
+    "yargs": "^17.7.2"
+  }
+}
