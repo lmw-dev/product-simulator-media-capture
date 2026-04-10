@@ -1,6 +1,7 @@
 module.exports = {
   // === Dashboard & Input Stage ===
-  newAnalysisButton: 'button:has-text("New Analysis")', // 触发 Modal 的按钮
+  newAnalysisButton: 'button:has-text("New Analysis"), button:has-text("Start New Analysis"), [role="button"]:has-text("New Analysis")', // 限制为按钮，防止点击到无关文本
+
   inputUrlField: 'input[placeholder*="http"], input[placeholder*="URL"], input[type="url"], [role="dialog"] input', // Modal 里的 YouTube URL 输入框
   submitAnalysisBtn: 'button:has-text("Analyze"), [role="dialog"] button:has-text("Analyze")', // Modal 里的 Analyze 按钮
 
