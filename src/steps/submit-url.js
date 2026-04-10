@@ -13,11 +13,12 @@ async function submitUrl(page, targetUrl) {
   
   try {
     // 1. 点击 Dashboard 上的 New Analysis 按钮调出 Modal
-    // 我们尝试用一个更广宽泛覆盖的 locater 阵列
-    const newAnalysisBtn = page.locator(selectors.newAnalysisButton).first();
+    // 这里使用扩展语法 locator('visible=true') 防止 .first() 把隐式的响应式菜单按钮捕获住而导致一直等待
+    const newAnalysisBtn = page.locator(selectors.newAnalysisButton).locator('visible=true').first();
     await newAnalysisBtn.waitFor({ state: 'visible', timeout: config.timeout.selectorWait });
     await newAnalysisBtn.click();
     logger.info('Opened New Analysis Modal.');
+
 
     // 2. 在 Modal 中填入 URL
     const inputEl = page.locator(selectors.inputUrlField).first();
