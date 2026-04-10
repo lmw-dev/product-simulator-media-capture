@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.openclaw.productsimulator</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Volumes/ExternalLiumw/lavori/01_code/product-simulator-media-capture/run-daily.sh</string>
+    </array>
+
+    <!-- 每天 09:00 运行 -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>9</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <key>WorkingDirectory</key>
+    <string>/Volumes/ExternalLiumw/lavori/01_code/product-simulator-media-capture</string>
+
+    <!-- 环境变量：替换为实际目标 YouTube URL -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>SCRIPT_SNAP_TARGET_URL</key>
+        <string>https://www.youtube.com/watch?v=6V-b073qhPA</string>
+        <key>HOME</key>
+        <string>/Users/liumingwei</string>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/Volumes/ExternalLiumw/lavori/01_code/product-simulator-media-capture/outputs/logs/launchd-stdout.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Volumes/ExternalLiumw/lavori/01_code/product-simulator-media-capture/outputs/logs/launchd-stderr.log</string>
+
+    <!-- 如果任务失败，不自动重试 -->
+    <key>RunAtLoad</key>
+    <false/>
+
+    <!-- 只有用户登录时才运行（不存后台守护进程） -->
+    <key>ProcessType</key>
+    <string>Interactive</string>
+</dict>
+</plist>

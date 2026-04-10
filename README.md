@@ -183,26 +183,80 @@ This repository should remain a **focused execution project**, not a general fra
 ### Prerequisites
 - Node.js (v18+)
 - Playwright
+- Google Chrome installed at `/Applications/Google Chrome.app`
 
 ```bash
 npm install
 ```
 
-### Running the CLI
-Run the capture pipeline by providing a target URL:
+---
+
+### Phase 1 SOP: Two-Step Flow
+
+This project runs in two steps. Step 1 is done by a human. Step 2 is automated.
+
+#### Step 1 — Capture auth state (human-assisted, one-time per session)
 
 ```bash
-node src/run-single-analysis.js --url "https://youtube.com/..."
+node src/capture-auth-state.js
+# or: npm run auth:capture
+```
+
+This opens a real Chrome window. You manually log into Script Snap, confirm you see the dashboard, then press ENTER in the terminal. The auth state is saved to `playwright/.auth/state.json`.
+
+> **This is not automated login.** This is human-assisted auth capture.
+
+#### Step 2 — Run the capture pipeline
+
+```bash
+node src/run-single-analysis.js --url "https://youtube.com/watch?v=<VIDEO_ID>"
 ```
 
 Optional parameters:
-- `--headless`: Run the browser in the background. Defaults to true. (Use `--no-headless` or set `DEV_MODE=true` to see the browser).
-- `--url`: The target URL to analyze.
+- `--no-headless`: Show the browser window (useful for debugging). Default is headless.
+- `--url <url>`: The target YouTube URL to analyze (required).
+
+---
+
+### Quick auth validity check
+
+Before running, check if your auth state is still valid:
+
+```bash
+node src/check-auth.js
+# or: npm run auth:check
+```
+
+Exit code 0 = valid. Exit code 1 = expired/missing → re-run Step 1.
+
+---
+
+### When auth expires
+
+Auth sessions typically last weeks to months. When the runner fails with:
+
+```
+[AUTH REQUIRED] Redirected to login page
+  Auth state missing or expired. Run: node src/capture-auth-state.js
+```
+
+Just re-run **Step 1** to get a fresh session. Then run Step 2 again.
+
+---
 
 ### Authentication
-The capture process utilizes a Playwright `.auth` file. Create your authenticated session state and place the JSON output at `playwright/.auth/state.json` (or change `STORAGE_STATE_PATH` environment variable) to avoid manual logins during automated runs.
+
+The runner uses `playwright/.auth/state.json` as the auth state file.
+This file is created by `src/capture-auth-state.js` and consumed by `src/run-single-analysis.js`.
+
+To change the auth file location, set the environment variable:
+
+```bash
+STORAGE_STATE_PATH=/path/to/state.json node src/run-single-analysis.js --url "..."
+```
 
 ### Configuration
+
 All Playwright selectors and basic definitions are explicitly isolated to ease future UI changes:
 - `src/config/app-config.js`
 - `src/config/selectors.js`

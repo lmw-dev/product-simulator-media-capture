@@ -42,22 +42,37 @@ async function main() {
     sourceUrl: targetUrl
   });
 
-  let browser;
   let context;
   try {
-    browser = await chromium.launch({ headless: argv.headless });
-    
-    // Attempt to load storage state if it exists
-    let contextOptions = {};
     const fs = require('fs');
-    if (fs.existsSync(config.storageStatePath)) {
-      contextOptions.storageState = config.storageStatePath;
-      logger.info(`Using storage state from: ${config.storageStatePath}`);
-    } else {
-      logger.warn(`Storage state not found at ${config.storageStatePath}. You may be blocked by login.`);
-    }
+    const path = require('path');
 
-    context = await browser.newContext(contextOptions);
+    const profilePath = path.join(config.chromeUserDataDir, config.chromeProfileDir);
+
+    // Pre-flight: check dedicated profile exists
+    if (!fs.existsSync(profilePath)) {
+      throw new Error(
+        `[SETUP REQUIRED] Dedicated Chrome profile not found: ${profilePath}\n` +
+        `  Please run first: node src/capture-auth-state.js`
+      );
+    }
+    logger.info(`Using Chrome profile: ${profilePath}`);
+
+    // launchPersistentContext: Playwright uses real Chrome profile with existing login state.
+    // This is the only approach that survives Google OAuth + Clerk's browser fingerprinting.
+    // The profile stores the login session — no storageState injection needed.
+    context = await chromium.launchPersistentContext(profilePath, {
+      executablePath: config.chromeExecutablePath,
+      headless: argv.headless,
+      viewport: { width: 1440, height: 900 },
+      args: [
+        '--no-first-run',
+        '--no-default-browser-check',
+        '--disable-blink-features=AutomationControlled',
+      ],
+      ignoreDefaultArgs: ['--enable-automation'],
+    });
+
     const page = await context.newPage();
 
     // 1. Open Dashboard
@@ -84,10 +99,10 @@ async function main() {
     logger.error(`Execution failed at stage '${packManager.pack.stage}': ${error.message}`);
     packManager.updateStatus('error', packManager.pack.stage, error.message);
   } finally {
-    logger.info('Closing browser and saving evidence pack...');
+    logger.info('Closing browser context and saving evidence pack...');
     if (context) await context.close();
-    if (browser) await browser.close();
-    
+    // Note: with launchPersistentContext, there is no separate browser object to close.
+
     packManager.save();
     logger.info(`Run ${runId} finished. Outputs are at: ${pathManager.runDir}`);
   }

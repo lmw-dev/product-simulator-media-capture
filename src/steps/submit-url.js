@@ -3,39 +3,31 @@ const config = require('../config/app-config');
 const logger = require('../core/logger');
 
 async function submitUrl(page, targetUrl) {
-  logger.info(`Navigating to new analysis page / input page...`);
-  
-  if (!page.url().includes('dashboard')) {
-    await page.goto(config.dashboardUrl, { waitUntil: 'domcontentloaded', timeout: config.timeout.pageLoad });
-  }
-
   logger.info(`Submitting target URL: ${targetUrl}`);
-  
-  try {
-    // 1. 点击 Dashboard 上的 New Analysis 按钮调出 Modal
-    // 这里使用扩展语法 locator('visible=true') 防止 .first() 把隐式的响应式菜单按钮捕获住而导致一直等待
-    const newAnalysisBtn = page.locator(selectors.newAnalysisButton).locator('visible=true').first();
-    await newAnalysisBtn.waitFor({ state: 'visible', timeout: config.timeout.selectorWait });
-    await newAnalysisBtn.click();
-    logger.info('Opened New Analysis Modal.');
 
+  // 1. Click "+ New Analysis" button on dashboard
+  const newAnalysisBtn = page.locator(selectors.newAnalysisButton).filter({ visible: true }).first();
+  await newAnalysisBtn.waitFor({ state: 'visible', timeout: config.timeout.selectorWait });
+  await newAnalysisBtn.click();
+  logger.info('Clicked New Analysis button. Waiting for modal...');
 
-    // 2. 在 Modal 中填入 URL
-    const inputEl = page.locator(selectors.inputUrlField).first();
-    await inputEl.waitFor({ state: 'visible', timeout: config.timeout.selectorWait });
-    await inputEl.fill(targetUrl);
-    
-    // 3. 点击 Analyze
-    const submitBtn = page.locator(selectors.submitAnalysisBtn).first();
-    await submitBtn.waitFor({ state: 'visible', timeout: config.timeout.selectorWait });
-    await submitBtn.click();
+  // 2. Fill URL input in modal (input#url)
+  const inputEl = page.locator(selectors.inputUrlField).filter({ visible: true }).first();
+  await inputEl.waitFor({ state: 'visible', timeout: config.timeout.selectorWait });
+  await inputEl.fill(targetUrl);
+  logger.info(`URL filled: ${targetUrl}`);
 
-    
-    logger.info('URL submitted. Waiting for transition...');
-  } catch (err) {
-    logger.error(`Failed to submit URL: ${err.message}`);
-    throw err;
-  }
+  // 3. Click "Analyze" button to submit
+  const submitBtn = page.locator(selectors.submitAnalysisBtn).filter({ visible: true }).first();
+  await submitBtn.waitFor({ state: 'visible', timeout: config.timeout.selectorWait });
+  await submitBtn.click();
+  logger.info('Analyze submitted. Waiting for page transition...');
+
+  // 4. Wait briefly for page to start transitioning
+  await page.waitForTimeout(2000);
+
+  const currentUrl = page.url();
+  logger.info(`Post-submit URL: ${currentUrl}`);
 }
 
 module.exports = submitUrl;

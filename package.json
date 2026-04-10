@@ -8,6 +8,8 @@
   },
   "scripts": {
     "start": "node src/run-single-analysis.js",
+    "auth:capture": "node src/capture-auth-state.js",
+    "auth:check": "node src/check-auth.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
