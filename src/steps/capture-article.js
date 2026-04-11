@@ -1,32 +1,41 @@
 const selectors = require('../config/selectors');
+const config = require('../config/app-config');
 const logger = require('../core/logger');
 
 async function captureArticle(page, packManager) {
   logger.info('Capturing Article panel...');
   try {
-    const articlePanel = await page.$(selectors.articlePanel);
-    if (!articlePanel) {
-      logger.warn('Article panel not found on the page.');
-      packManager.setObservation((packManager.pack.notes.observation || '') + ' Article panel missing.');
-      return;
-    }
+    // 1. Click Article tab to make it active
+    const articleTab = page.locator(selectors.articleTab).first();
+    await articleTab.waitFor({ state: 'visible', timeout: config.timeout.selectorWait });
+    await articleTab.click();
+    logger.info('Article tab clicked.');
 
+    // 2. Wait for panel to become active
+    const panel = page.locator(selectors.activeTabPanel).first();
+    await panel.waitFor({ state: 'visible', timeout: config.timeout.selectorWait });
+
+    // 3. Screenshot the full panel
     const screenshotPath = packManager.pathManager.getFilePath('article.png');
-    await articlePanel.screenshot({ path: screenshotPath });
+    await panel.screenshot({ path: screenshotPath });
     packManager.addArtifact('articleScreenshot', screenshotPath);
+    logger.info(`Article screenshot saved: ${screenshotPath}`);
 
-    const txtElement = await articlePanel.$(selectors.articleTextContent);
-    if (txtElement) {
-      const text = await txtElement.textContent();
-      packManager.addContent('articleText', text);
-      logger.info('Article content extracted.');
+    // 4. Extract full text (innerText preserves heading / paragraph structure)
+    const text = await panel.innerText();
+    const cleaned = text.trim();
+
+    if (cleaned.length > 0) {
+      packManager.addContent('articleText', cleaned);
+      logger.info(`Article text extracted (${cleaned.length} chars).`);
     } else {
-      logger.warn('Article text content element not found inside panel.');
-      packManager.addContent('articleText', ''); 
+      logger.warn('Article panel found but innerText is empty.');
+      packManager.addContent('articleText', '');
     }
 
   } catch (err) {
-    logger.error('Failed to capture article:', err.message);
+    logger.error(`Failed to capture article: ${err.message}`);
+    packManager.setObservation((packManager.pack.notes.observation || '') + ' Article capture failed.');
   }
 }
 

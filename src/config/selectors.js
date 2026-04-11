@@ -46,15 +46,22 @@ module.exports = {
   ].join(', '),
 
   // === Detail Panels (Article & Tweets) ===
-  // Tab 按钮: 文字匹配（ID 是动态的 radix ID）
+  // 两个面板共用同一个 tabpanel 容器 (Radix UI)
+  // 区分方式：先点击 tab 按钮，再获取 data-state="active" 的 panel
+
+  // Tab 切换按钮（文字匹配，Radix 的 ID 是动态的）
   articleTab: 'button[role="tab"]:has-text("Article")',
   tweetsTab: 'button[role="tab"]:has-text("Tweets")',
 
-  // Article 内容区域
-  articlePanel: '[data-testid="article-panel"], [class*="article"], .prose',
-  articleTextContent: '[class*="article"] p, .prose p, [role="tabpanel"] p',
+  // 活跃 tabpanel 容器（点击 tab 后使用）
+  activeTabPanel: 'div[role="tabpanel"][data-state="active"]',
 
-  // Tweets 内容区域
-  tweetsPanel: '[data-testid="tweets-panel"], [class*="tweet"]',
-  tweetsTextContent: '[class*="tweet"] p, [role="tabpanel"][data-state="active"] p',
+  // Article 内容：标准 Markdown HTML，提取全部文本内容
+  // 策略：取整个 panel innerText（包含 h1/h2/p/li/table 等）
+  articleTextContent: 'div[role="tabpanel"][data-state="active"]',
+
+  // Tweets 内容：每条 tweet 是一个卡片
+  // 结构： [Index圆圈] [p 正文] [Copy按钮]
+  // 策略：取 panel 下所有 p 元素，过滤掉太短的（数字和按钮标签）
+  tweetsTextContent: 'div[role="tabpanel"][data-state="active"] p',
 };
