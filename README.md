@@ -1,189 +1,187 @@
-# Product Simulator & Media Capture
+# Product Simulator & Media Capture (产品模拟与媒体捕获)
 
-## What this project is
+## 项目定位
 
-`Product Simulator & Media Capture` is a **Script Snap product dogfooding and result evidence capture runner**.
+`Product Simulator & Media Capture` 是一个 **Script Snap 产品体验与结果证据捕获运行器 (Runner)**。
 
-Its purpose is to execute the real Script Snap analysis flow, reach the result page, capture the right-side `Article` and `Tweets`, and generate a structured **Result Evidence Pack** for:
+其目的是执行真实的 Script Snap 分析流程，到达结果页面，捕获右侧的 `Article` 和 `Tweets` 内容，并生成结构化的 **结果证据包 (Result Evidence Pack)**，用于：
 
-- product calibration
-- case analysis input
-- result-page evidence collection
-- repeatable dogfooding
+- 产品校准 (Product Calibration)
+- 案例分析输入 (Case Analysis Input)
+- 结果页证据收集 (Result-page Evidence Collection)
+- 可重复的产品体验 (Dogfooding)
 
-This repository exists for the **execution layer** of the project.
+本仓库负责项目的 **执行层 (Execution Layer)**。
 
-- **Definition layer** lives in the project documents / Obsidian workspace
-- **Execution layer** lives here in code
-
----
-
-## What this project is not
-
-This project is **not**:
-
-- a generic browser automation platform
-- a screen-recording-first tool
-- a long-running backend service
-- an internal API server
-- a multi-user queue system
-- a broad content export framework
-- a “capture everything from every tab” pipeline
-
-Phase 1 must stay disciplined.
+- **定义层 (Definition Layer)** 位于项目文档 / Obsidian 工作区
+- **执行层 (Execution Layer)** 位于此处的代码中
 
 ---
 
-## Locked project definition
+## 明确“非目标”
 
-The project definition has already been locked in the design docs.
+本项目 **不是**：
 
-### Core definition
-This is a pipeline for:
-- Script Snap product dogfooding
-- result evidence capture
-- case analysis input generation
-- product calibration input generation
+- 通用的浏览器自动化平台
+- 录屏优先工具
+- 长期运行的后端服务
+- 内部 API 服务器
+- 多用户队列系统
+- 宽泛的内容导出框架
+- “从每个标签页抓取一切”的流水线
 
-### Primary deliverable
-The primary deliverable is:
-- `Result Evidence Pack`
-
-### Phase 1 capture focus
-Phase 1 only focuses on:
-- reaching the result page
-- capturing right-side `Article`
-- capturing right-side `Tweets`
-- generating structured output
-
-### Playwright boundary
-Playwright is only responsible for:
-- execution
-- waiting
-- locating
-- capturing
-- structured output generation
-
-Playwright is **not** responsible for:
-- final analysis judgment
-- product strategy conclusions
-- red-team review conclusions
-- replacing human review
+第一阶段 (Phase 1) 必须保持聚焦和克制。
 
 ---
 
-## Phase 1 scope
+## 项目定义（已锁定）
 
-Phase 1 only does the minimum correct path:
+项目定义已在设计文档中锁定。
 
-1. open Script Snap dashboard
-2. trigger analysis
-3. submit target URL
-4. wait for the result page
-5. capture `Article / Tweets`
-6. generate a `Result Evidence Pack`
-7. generate a minimal run summary
+### 核心定义
+这是一个用于以下目标的流水线：
+- Script Snap 产品体验 (Dogfooding)
+- 结果证据捕获
+- 案例分析输入生成
+- 产品校准输入生成
 
-### Explicitly out of scope in Phase 1
-- cron scheduling
-- long-running service mode
-- job queueing
-- multi-run orchestration
-- database storage
-- broad plugin architecture
-- full-flow media pipeline
-- deep automatic content analysis
+### 主要交付物
+主要交付物是：
+- `Result Evidence Pack` (结果证据包)
+
+### 第一阶段捕获重点
+第一阶段仅关注：
+- 到达结果页
+- 捕获右侧 `Article` (文章)
+- 捕获右侧 `Tweets` (推文)
+- 生成结构化输出
+
+### Playwright 职责边界
+Playwright 仅负责：
+- 执行
+- 等待
+- 定位
+- 捕获
+- 结构化输出生成
+
+Playwright **不** 负责：
+- 最终的分析判断
+- 产品策略结论
+- 红队审查结论
+- 替代人工审查
 
 ---
 
-## Recommended repository structure
+## 第一阶段范围 (Phase 1 Scope)
+
+第一阶段仅执行最小路径：
+
+1. 打开 Script Snap 控制台 (Dashboard)
+2. 触发分析
+3. 提交目标 URL
+4. 等待结果页加载
+5. 捕获 `Article / Tweets`
+6. 生成 `Result Evidence Pack`
+7. 生成最小化运行摘要 (Run Summary)
+
+### 第一阶段明确排除在外的：
+- Cron 定时调度（交由系统 launchd 处理）
+- 长期运行的服务模式
+- 任务排队
+- 多任务编排
+- 数据库存储
+- 宽泛的插件架构
+- 全流程媒体流水线
+- 深度自动内容分析
+
+---
+
+## 推荐目录结构
 
 ```text
 product-simulator-media-capture/
   README.md
-  docs/
-    CODEX_IMPLEMENTATION_PROMPT.md
-  src/
-    run-single-analysis.js
-    steps/
-    core/
-    config/
-  outputs/
+  docs/                   # 项目文档
+  src/                    # 源码
+    run-single-analysis.js # 主运行脚本
+    steps/                # 步骤逻辑
+    core/                 # 核心模块
+    config/               # 配置与选择器
+  outputs/                # 运行输出
 ```
 
 ---
 
-## Output expectation
+## 输出预期
 
-Each run should produce a run-specific output folder, for example:
+每次运行应产生一个特定于该次运行的输出文件夹，例如：
 
 ```text
 outputs/
   2026-04-09/
     run-2026-04-09-001/
-      evidence-pack.json
-      result-page.png
-      article.png
-      tweets.png
-      run-summary.md
+      evidence-pack.json  # 核心结构化数据
+      result-page.png      # 结果页全屏截图
+      article.png         # 文章面板截图
+      tweets.png          # 推文面板截图
+      run-summary.md      # 运行摘要
 ```
 
-### Minimum `Result Evidence Pack`
-The output JSON should include at least:
-- `runId`
-- `timestamp`
-- `sourceUrl`
-- `status`
-- result page screenshot path
-- article screenshot path
-- tweets screenshot path
-- article raw text
-- tweets raw text
-- validation state
-- basic notes
+### 最小 `Result Evidence Pack` 内容
+输出的 JSON 应至少包含：
+- `runId`: 运行 ID
+- `timestamp`: 时间戳
+- `sourceUrl`: 源 YouTube URL
+- `status`: 状态
+- 结果页截图路径
+- 文章面板截图路径
+- 推文面板截图路径
+- 文章原始文本 (article raw text)
+- 推文原始文本 (tweets raw text)
+- 校验状态
+- 基础备注 (notes)
 
 ---
 
-## Related docs
+## 相关文档
 
-### Core project docs
+### 核心项目文档 (文内)
 - `方案说明 - Product Simulator & Media Capture v2（Core Design）.md`
 - `SOP - Product Simulator & Media Capture 执行流程.md`
 - `Phase 1 拆解 - Product Simulator & Media Capture v2.md`
 
-### Implementation prompt
-- `docs/CODEX_IMPLEMENTATION_PROMPT.md`
+### 实施总结 (新增)
+- `docs/auth-automation-summary.md` (关于 Auth 架构调整的详细说明)
 
 ---
 
-## Current status
+## 现状
 
-Current status:
-- project definition locked
-- Phase 1 tasks created in Linear
-- code repository initialized
-- implementation prompt prepared for Codex
-
----
-
-## Build philosophy
-
-Build the smallest correct runner.
-
-Do not overbuild.
-Do not platformize.
-Do not optimize for imaginary future complexity.
-
-This repository should remain a **focused execution project**, not a general framework.
+- 项目定义已锁定
+- Phase 1 任务已在 Linear 创建
+- 代码仓库已初始化
+- 执行流程已完全打通
 
 ---
 
-## Usage
+## 构建哲学
 
-### Prerequisites
+构建“最小且正确”的运行器。
+
+不要过度构建。
+不要平台化。
+不要为想象中的未来复杂度进行优化。
+
+本仓库应保持为一个 **专注的执行项目**，而非通用框架。
+
+---
+
+## 使用指南 (Usage)
+
+### 环境要求
 - Node.js (v18+)
 - Playwright
-- Google Chrome installed at `/Applications/Google Chrome.app`
+- 已安装 Google Chrome (`/Applications/Google Chrome.app`)
 
 ```bash
 npm install
@@ -191,72 +189,68 @@ npm install
 
 ---
 
-### Phase 1 SOP: Two-Step Flow
+### 第一阶段 SOP：两步工作流
 
-This project runs in two steps. Step 1 is done by a human. Step 2 is automated.
+本项目采用“人工协同 + 半自动”的模式。
 
-#### Step 1 — Capture auth state (human-assisted, one-time per session)
+#### 第一步：Init Auth (人工协同，一次登录，长期有效)
+
+由于 Google OAuth 会拦截自动化浏览器，我们需要使用**专用 Profile (Persistent Context)** 模式。
 
 ```bash
 node src/capture-auth-state.js
-# or: npm run auth:capture
+# 或使用脚本: npm run auth:capture
 ```
 
-This opens a real Chrome window. You manually log into Script Snap, confirm you see the dashboard, then press ENTER in the terminal. The auth state is saved to `playwright/.auth/state.json`.
+1. 脚本会以**有头模式**开启一个专用的 Chrome 窗口。
+2. 你在窗口中手动完成 Script Snap 登录（支持 Google/GitHub）。
+3. 确认看到控制台 (Dashboard) 后，在终端按 **ENTER**。
+4. 登录态将永久保存在 `ScriptSnapBot` 专用 Profile 目录中。
 
-> **This is not automated login.** This is human-assisted auth capture.
+> **注意**：这只需要执行一次。只要服务端 Session 不过期，之后的自动化运行就不需要再人工干预。
 
-#### Step 2 — Run the capture pipeline
+#### 第二步：运行捕获流水线 (完全自动)
 
 ```bash
-node src/run-single-analysis.js --url "https://youtube.com/watch?v=<VIDEO_ID>"
+node src/run-single-analysis.js --url "https://the-youtube-url"
 ```
 
-Optional parameters:
-- `--no-headless`: Show the browser window (useful for debugging). Default is headless.
-- `--url <url>`: The target YouTube URL to analyze (required).
+**可选参数：**
+- `--no-headless`: 显示浏览器窗口（调试用）。默认为无头模式。
+- `--url <url>`: 要分析的目标 YouTube URL（必填）。
 
 ---
 
-### Quick auth validity check
+### 自动化定时运行 (macOS)
 
-Before running, check if your auth state is still valid:
+为了实现无人值守，我们提供了 `launchd` 配置：
+
+1. **配置脚本**：编辑 `run-daily.sh` 设定默认 URL。
+2. **部署任务**：
+   ```bash
+   cp docs/com.openclaw.productsimulator.plist ~/Library/LaunchAgents/
+   launchctl load ~/Library/LaunchAgents/com.openclaw.productsimulator.plist
+   ```
+3. 任务会在每天上午 09:00 自动运行。
+
+---
+
+### 快速检查 Auth 状态
+
+在运行前，可以快速检查本地状态：
 
 ```bash
 node src/check-auth.js
-# or: npm run auth:check
+# 或: npm run auth:check
 ```
 
-Exit code 0 = valid. Exit code 1 = expired/missing → re-run Step 1.
+- 退出码 0 = 正常。
+- 退出码 1 = 过期或缺失 → 请重新执行 **第一步**。
 
 ---
 
-### When auth expires
+### 配置维护
 
-Auth sessions typically last weeks to months. When the runner fails with:
-
-```
-[AUTH REQUIRED] Redirected to login page
-  Auth state missing or expired. Run: node src/capture-auth-state.js
-```
-
-Just re-run **Step 1** to get a fresh session. Then run Step 2 again.
-
----
-
-### Authentication
-
-The runner uses `playwright/.auth/state.json` as the auth state file.
-This file is created by `src/capture-auth-state.js` and consumed by `src/run-single-analysis.js`.
-
-To change the auth file location, set the environment variable:
-
-```bash
-STORAGE_STATE_PATH=/path/to/state.json node src/run-single-analysis.js --url "..."
-```
-
-### Configuration
-
-All Playwright selectors and basic definitions are explicitly isolated to ease future UI changes:
-- `src/config/app-config.js`
-- `src/config/selectors.js`
+所有 Playwright 选择器和基础定义均已隔离，方便未来 UI 变更时维护：
+- `src/config/app-config.js`: 全局配置（超时、路径、Profile）
+- `src/config/selectors.js`: 精确的 UI 选择器定义
