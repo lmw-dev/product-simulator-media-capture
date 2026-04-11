@@ -3,3 +3,5 @@ node_modules
 outputs/*
 !outputs/.gitkeep
 playwright/.auth
+data/*.sqlite
+data/*.sqlite-*

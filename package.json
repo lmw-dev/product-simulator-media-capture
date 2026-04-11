@@ -8,14 +8,18 @@
   },
   "scripts": {
     "start": "node src/run-single-analysis.js",
+    "start:from-pool": "node src/run-single-analysis.js --from-pool",
     "auth:capture": "node src/capture-auth-state.js",
     "auth:check": "node src/check-auth.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "url-pool": "node src/url-pool-cli.js",
+    "test:url-pool": "node src/url-pool-self-test.js",
+    "test": "npm run test:url-pool"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "better-sqlite3": "^12.8.0",
     "playwright": "^1.59.1",
     "yargs": "^17.7.2"
   }

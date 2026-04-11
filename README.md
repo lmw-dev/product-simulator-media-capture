@@ -212,12 +212,68 @@ node src/capture-auth-state.js
 #### 第二步：运行捕获流水线 (完全自动)
 
 ```bash
-node src/run-single-analysis.js --url "https://the-youtube-url"
+node src/run-single-analysis.js --url "https://www.youtube.com/watch?v=67Cbb3DyIxA"
 ```
 
 **可选参数：**
 - `--no-headless`: 显示浏览器窗口（调试用）。默认为无头模式。
-- `--url <url>`: 要分析的目标 YouTube URL（必填）。
+- `--url <url>`: 指定要分析的 URL。
+- `--from-pool`: 从本地 URL Source Pool 取下一条 `pending` URL。
+- `--pool-db <path>`: 覆盖默认 SQLite 路径（仅在 `--from-pool` 场景常用）。
+
+---
+
+### URL Source Pool（SQLite）
+
+TOM-740 已实现本地 URL 输入池（去重 + 状态管理），默认数据库位置：
+
+`data/url-source-pool.sqlite`
+
+支持状态：
+- `pending`
+- `processed`
+- `failed`
+- `skipped`
+
+#### 1) 添加 URL
+
+```bash
+npm run url-pool -- add \
+  --url "https://www.youtube.com/watch?v=67Cbb3DyIxA" \
+  --source-type manual \
+  --source-name "daily-pick" \
+  --content-type youtube
+```
+
+#### 2) 查看下一条待执行 URL
+
+```bash
+npm run url-pool -- next
+```
+
+#### 3) 按 URL 查询
+
+```bash
+npm run url-pool -- get --url "https://www.youtube.com/watch?v=67Cbb3DyIxA"
+```
+
+#### 4) 状态回写（processed / failed / skipped）
+
+```bash
+npm run url-pool -- mark --url "https://www.youtube.com/watch?v=67Cbb3DyIxA" --status processed --run-id "run-2026-04-11-123456"
+```
+
+#### 5) 让 runner 直接消费 URL pool
+
+```bash
+node src/run-single-analysis.js --from-pool
+# 或
+npm run start:from-pool
+```
+
+runner 在 `--from-pool` 模式下会自动回写状态：
+- 成功 -> `processed`
+- 非成功结束 -> `failed`
 
 ---
 

@@ -5,6 +5,7 @@ const config = require('./config/app-config');
 const PathManager = require('./core/paths');
 const EvidencePackManager = require('./core/evidence-pack');
 const logger = require('./core/logger');
+const UrlPoolRepository = require('./core/url-pool-repo');
 
 // Steps
 const openDashboard = require('./steps/open-dashboard');
@@ -18,8 +19,16 @@ async function main() {
     .option('url', {
       alias: 'u',
       type: 'string',
-      description: 'Target URL to analyze',
-      demandOption: true
+      description: 'Target URL to analyze'
+    })
+    .option('from-pool', {
+      type: 'boolean',
+      description: 'Pick next pending URL from local sqlite URL pool',
+      default: false
+    })
+    .option('pool-db', {
+      type: 'string',
+      description: 'Override sqlite URL pool db path'
     })
     .option('headless', {
       type: 'boolean',
@@ -28,22 +37,51 @@ async function main() {
     })
     .parse();
 
-  const targetUrl = argv.url;
   // Use a predictable run identifier based on date + timestamp snippet to ensure it's easy to read
   const snippet = Date.now().toString().slice(-6);
   const dateStr = new Date().toISOString().split('T')[0];
   const runId = `run-${dateStr}-${snippet}`;
-  
-  logger.info(`Starting execution. Run ID: ${runId}`);
-  
-  const pathManager = new PathManager(runId);
-  const packManager = new EvidencePackManager(pathManager, {
-    runId,
-    sourceUrl: targetUrl
-  });
 
   let context;
+  let pathManager = null;
+  let packManager = null;
+  let targetUrl = argv.url || null;
+  let poolRepo = null;
+  let poolRecord = null;
+  let runFailed = false;
+
   try {
+    if (argv.url && argv.fromPool) {
+      throw new Error('Use either --url or --from-pool, not both.');
+    }
+    if (!argv.url && !argv.fromPool) {
+      throw new Error('Missing input URL. Use --url or --from-pool.');
+    }
+
+    if (argv.fromPool) {
+      poolRepo = new UrlPoolRepository(argv.poolDb || config.urlPoolDbPath);
+      poolRecord = poolRepo.getNextPendingUrl();
+
+      if (!poolRecord) {
+        throw new Error(`[URL POOL EMPTY] No pending URL in ${argv.poolDb || config.urlPoolDbPath}`);
+      }
+
+      targetUrl = poolRecord.url;
+      logger.info(`Picked URL from pool: id=${poolRecord.id}, sourceType=${poolRecord.source_type}, url=${targetUrl}`);
+    }
+
+    logger.info(`Starting execution. Run ID: ${runId}`);
+    pathManager = new PathManager(runId);
+    packManager = new EvidencePackManager(pathManager, {
+      runId,
+      sourceUrl: targetUrl
+    });
+
+    if (poolRecord) {
+      const sourceSummary = `URL pool source: ${poolRecord.source_type}${poolRecord.source_name ? ` (${poolRecord.source_name})` : ''}`;
+      packManager.setObservation(sourceSummary);
+    }
+
     const fs = require('fs');
     const path = require('path');
 
@@ -96,15 +134,52 @@ async function main() {
     }
 
   } catch (error) {
-    logger.error(`Execution failed at stage '${packManager.pack.stage}': ${error.message}`);
-    packManager.updateStatus('error', packManager.pack.stage, error.message);
+    runFailed = true;
+    const currentStage = packManager ? packManager.pack.stage : 'preflight';
+    logger.error(`Execution failed at stage '${currentStage}': ${error.message}`);
+    if (packManager) {
+      packManager.updateStatus('error', packManager.pack.stage, error.message);
+    }
   } finally {
     logger.info('Closing browser context and saving evidence pack...');
     if (context) await context.close();
     // Note: with launchPersistentContext, there is no separate browser object to close.
 
-    packManager.save();
-    logger.info(`Run ${runId} finished. Outputs are at: ${pathManager.runDir}`);
+    if (packManager) {
+      packManager.save();
+      logger.info(`Run ${runId} finished. Outputs are at: ${pathManager.runDir}`);
+    } else {
+      logger.warn(`Run ${runId} finished without evidence pack (preflight failure).`);
+    }
+
+    if (poolRepo && poolRecord && packManager) {
+      try {
+        if (packManager.pack.status === 'success') {
+          poolRepo.markProcessedById(poolRecord.id, {
+            runId,
+            notes: `Processed by runner (${runId}).`,
+          });
+          logger.info(`Pool URL marked as processed: id=${poolRecord.id}`);
+        } else if (packManager.pack.status !== 'running') {
+          poolRepo.markFailedById(poolRecord.id, {
+            runId,
+            error: packManager.pack.validation.errorState || `Runner failed at stage ${packManager.pack.stage}`,
+            notes: `Marked failed by runner (${runId}).`,
+          });
+          logger.info(`Pool URL marked as failed: id=${poolRecord.id}`);
+        }
+      } catch (poolError) {
+        logger.error(`Failed to update pool status for id=${poolRecord.id}: ${poolError.message}`);
+      }
+    }
+
+    if (poolRepo) {
+      poolRepo.close();
+    }
+
+    if (runFailed || (packManager && packManager.pack.status !== 'success')) {
+      process.exitCode = 1;
+    }
   }
 }
 

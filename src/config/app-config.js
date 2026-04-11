@@ -14,6 +14,8 @@ const config = {
   // storageState 路径（保留作备用）
   storageStatePath: process.env.STORAGE_STATE_PATH ||
     path.join(__dirname, '../../playwright/.auth/state.json'),
+  urlPoolDbPath: process.env.URL_POOL_DB_PATH ||
+    path.join(__dirname, '../../data/url-source-pool.sqlite'),
 
   timeout: {
     pageLoad: 60000,
