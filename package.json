@@ -12,6 +12,7 @@
     "auth:capture": "node src/capture-auth-state.js",
     "auth:check": "node src/check-auth.js",
     "url-pool": "node src/url-pool-cli.js",
+    "report:post-run": "node src/post-run-report.js",
     "test:url-pool": "node src/url-pool-self-test.js",
     "test": "npm run test:url-pool"
   },

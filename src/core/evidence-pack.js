@@ -7,6 +7,7 @@ class EvidencePackManager {
     this.runId = runInfo.runId;
     this.sourceUrl = runInfo.sourceUrl;
     this.timestamp = runInfo.timestamp || new Date().toISOString();
+    this.startedAtMs = Date.now();
     
     this.pack = {
       runId: this.runId,
@@ -14,6 +15,11 @@ class EvidencePackManager {
       sourceUrl: this.sourceUrl,
       status: 'unknown',
       stage: 'initialized',
+      runtime: {
+        startedAt: this.timestamp,
+        finishedAt: null,
+        durationMs: null
+      },
       artifacts: {
         resultPageScreenshot: null,
         articleScreenshot: null,
@@ -72,6 +78,10 @@ class EvidencePackManager {
   }
 
   save() {
+    const finishedAt = new Date();
+    this.pack.runtime.finishedAt = finishedAt.toISOString();
+    this.pack.runtime.durationMs = Math.max(0, finishedAt.getTime() - this.startedAtMs);
+
     const jsonPath = this.pathManager.getFilePath('evidence-pack.json');
     fs.writeFileSync(jsonPath, JSON.stringify(this.pack, null, 2), 'utf-8');
     logger.info(`Evidence pack saved to ${jsonPath}`);

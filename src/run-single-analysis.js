@@ -1,6 +1,8 @@
 const { chromium } = require('playwright');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
+const fs = require('fs');
+const path = require('path');
 const config = require('./config/app-config');
 const PathManager = require('./core/paths');
 const EvidencePackManager = require('./core/evidence-pack');
@@ -15,6 +17,7 @@ const captureArticle = require('./steps/capture-article');
 const captureTweets = require('./steps/capture-tweets');
 
 async function main() {
+  const startedAtMs = Date.now();
   const argv = yargs(hideBin(process.argv))
     .option('url', {
       alias: 'u',
@@ -81,9 +84,6 @@ async function main() {
       const sourceSummary = `URL pool source: ${poolRecord.source_type}${poolRecord.source_name ? ` (${poolRecord.source_name})` : ''}`;
       packManager.setObservation(sourceSummary);
     }
-
-    const fs = require('fs');
-    const path = require('path');
 
     const profilePath = path.join(config.chromeUserDataDir, config.chromeProfileDir);
 
@@ -175,6 +175,27 @@ async function main() {
 
     if (poolRepo) {
       poolRepo.close();
+    }
+
+    const outputsDir = path.join(__dirname, '../outputs');
+    const latestMetaPath = path.join(outputsDir, 'latest-run-meta.json');
+    try {
+      fs.mkdirSync(outputsDir, { recursive: true });
+      const latestMeta = {
+        runId,
+        runDir: pathManager ? pathManager.runDir : null,
+        sourceUrl: targetUrl,
+        status: packManager ? packManager.pack.status : (runFailed ? 'error' : 'unknown'),
+        stage: packManager ? packManager.pack.stage : 'preflight',
+        errorState: packManager?.pack?.validation?.errorState || null,
+        startedAt: new Date(startedAtMs).toISOString(),
+        finishedAt: new Date().toISOString(),
+        durationMs: Date.now() - startedAtMs
+      };
+      fs.writeFileSync(latestMetaPath, JSON.stringify(latestMeta, null, 2), 'utf-8');
+      logger.info(`Latest run metadata saved to: ${latestMetaPath}`);
+    } catch (metaError) {
+      logger.warn(`Failed to write latest run metadata: ${metaError.message}`);
     }
 
     if (runFailed || (packManager && packManager.pack.status !== 'success')) {

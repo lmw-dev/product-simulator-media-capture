@@ -289,6 +289,36 @@ runner 在 `--from-pool` 模式下会自动回写状态：
    ```
 3. 任务会在每天上午 09:00 自动运行。
 
+#### TOM-745: 自动回传与审核归档
+
+`run-daily.sh` 现已在每次运行结束后自动执行 post-run hook：
+- 生成 `review-summary.md` 到当前 run 目录
+- 发送结构化执行摘要到 Discord `#script-snap-exec`
+- 通过 OpenClaw Agent 追加模型评审（可行性结论 + 风险建议）
+
+可选环境变量：
+- `DISCORD_SCRIPT_SNAP_EXEC_CHANNEL_ID`: Discord channel id（默认 `1489176810410479696`，用于 OpenClaw 主路径）
+- `DISCORD_SCRIPT_SNAP_EXEC_WEBHOOK_URL`: Discord webhook URL（仅作为 OpenClaw 失败时的 fallback）
+
+本地 dry-run（仅生成报告并打印 payload）：
+
+```bash
+npm run report:post-run -- --dry-run
+```
+
+强制指定传输方式（调试用）：
+
+```bash
+npm run report:post-run -- --transport openclaw --dry-run
+npm run report:post-run -- --transport webhook
+```
+
+关闭模型评审（仅规则评审）：
+
+```bash
+npm run report:post-run -- --llm-review false
+```
+
 ---
 
 ### 快速检查 Auth 状态
