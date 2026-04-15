@@ -289,6 +289,11 @@ runner 在 `--from-pool` 模式下会自动回写状态：
    ```
 3. 任务会在每天上午 09:00 自动运行。
 
+`run-daily.sh` 在导入 `youtube-url-inbox.md` 到 URL pool 后，会将本轮 URL 归档到：
+- `youtube-url-inbox.consumed.md`
+
+随后会清空 `youtube-url-inbox.md`（保留 Header），用于下一轮增量输入。
+
 #### TOM-745: 自动回传与审核归档
 
 `run-daily.sh` 现已在每次运行结束后自动执行 post-run hook：

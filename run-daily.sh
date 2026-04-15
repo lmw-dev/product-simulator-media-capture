@@ -8,6 +8,7 @@ NODE="$(which node || echo '/opt/homebrew/bin/node')"
 PROJECT_DIR="/Volumes/ExternalLiumw/lavori/01_code/product-simulator-media-capture"
 LOG_DIR="${PROJECT_DIR}/outputs/logs"
 INBOX_FILE="${PROJECT_DIR}/youtube-url-inbox.md"
+INBOX_ARCHIVE_FILE="${PROJECT_DIR}/youtube-url-inbox.consumed.md"
 
 mkdir -p "${LOG_DIR}"
 LOG_FILE="${LOG_DIR}/run-from-pool-$(date +%Y-%m-%d).log"
@@ -19,6 +20,25 @@ cd "${PROJECT_DIR}"
 # 1. 批量导入 inbox 到 Pool (自动去重)
 echo "-> Importing URLs from inbox..." >> "${LOG_FILE}"
 if [ -f "${INBOX_FILE}" ]; then
+  # 先归档本轮 inbox（避免导入后清空导致来源丢失）
+  python3 -c "
+from datetime import datetime
+from pathlib import Path
+
+inbox = Path('${INBOX_FILE}')
+archive = Path('${INBOX_ARCHIVE_FILE}')
+urls = [line.strip() for line in inbox.read_text(encoding='utf-8').splitlines() if line.strip() and not line.startswith('#')]
+
+if urls:
+    if not archive.exists():
+        archive.write_text('# Script Snap YouTube URL Inbox Archive\\n\\n', encoding='utf-8')
+    with archive.open('a', encoding='utf-8') as f:
+        f.write(f'## Imported at {datetime.now().isoformat()}\\n')
+        for url in urls:
+            f.write(f'- {url}\\n')
+        f.write('\\n')
+" >> "${LOG_FILE}" 2>&1
+
   python3 -c "
 import sys, subprocess
 urls = [line.strip() for line in open('${INBOX_FILE}', 'r', encoding='utf-8') if line.strip() and not line.startswith('#')]
