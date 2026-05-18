@@ -1,0 +1,1163 @@
+]2;Gemini - 18-product-simulator-media-capture
+ ███         █████████
+░░░███      ███░░░░░███
+  ░░░███   ███     ░░░
+    ░░░███░███
+     ███░ ░███    █████
+   ███░   ░░███  ░░███
+ ███░      ░░█████████
+░░░         ░░░░░░░░░
+
+Tips for getting started:
+1. Ask questions, edit files, or run commands.
+2. Be specific for the best results.
+3. /help for more information.
+╭──────────────────────────────────────────────────────────╮
+│                                                          │
+│ ⠋ Waiting for auth... (Press ESC or CTRL+C to cancel)    │
+│                                                          │
+╰──────────────────────────────────────────────────────────╯
+[?1004h[?2004h[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+⠋ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+⠋ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+⠙ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+⠹ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+⠸ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠸ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠼ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠴ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠦ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠧ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠇ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠏ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠋ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠙ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠹ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠸ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠼ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠴ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠦ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠧ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠇ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠏ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠋ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠙ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠹ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠸ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠼ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠴ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠦ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠧ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠇ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠏ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠋ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠙ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠹ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠸ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠼ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠴ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠦ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠧ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠇ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠏ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠋ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠙ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠹ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠸ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠼ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠴ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠦ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠧ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠇ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠏ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠋ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠙ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠹ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠸ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠼ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+⠴ Initializing...
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+╭──────────────────────────────────────────────────────────╮
+│ Gemini CLI update available! 0.23.0 → 0.38.1             │
+│ Installed with npm. Attempting to automatically update   │
+│ now...                                                   │
+╰──────────────────────────────────────────────────────────╯
+
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+ℹ Update successful! The new version will be used on your
+  next run.
+
+ Using:
+   - 1 GEMINI.md file
+   - 1 MCP server
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+Press Ctrl+C again to exit.
+╭──────────────────────────────────────────────────────────╮
+│ >   Press 'i' for INSERT mode and 'Esc' for NORMAL mode. │
+╰──────────────────────────────────────────────────────────╯
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+Press Ctrl+C again to exit.
+ [NORMAL~/01-pro...-capture     no          Auto (Gemini 3)
+        (main*)                 sandbox     /model
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+> /quit
+
+╭──────────────────────────────────────────────────────────╮
+│                                                          │
+│  Agent powering down. Goodbye!                           │
+│                                                          │
+│  Interaction Summary                                     │
+│  Session ID:            ee5c296c-a028-47c9-bbd8-138ff6e  │
+│                         95220                            │
+│  Tool Calls:                 0 ( ✓ 0 x 0 )               │
+│  Success Rate:               0.0%                        │
+│                                                          │
+│  Performance                                             │
+│  Wall Time:                  10.6s                       │
+│  Agent Active:               0s                          │
+│    » API Time:               0s (0.0%)                   │
+│    » Tool Time:              0s (0.0%)                   │
+│                                                          │
+│                                                          │
+╰──────────────────────────────────────────────────────────╯
+
+[?1006l[?1002l[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+> /quit
+
+╭──────────────────────────────────────────────────────────╮
+│                                                          │
+│  Agent powering down. Goodbye!                           │
+│                                                          │
+│  Interaction Summary                                     │
+│  Session ID:            ee5c296c-a028-47c9-bbd8-138ff6e  │
+│                         95220                            │
+│  Tool Calls:                 0 ( ✓ 0 x 0 )               │
+│  Success Rate:               0.0%                        │
+│                                                          │
+│  Performance                                             │
+│  Wall Time:                  10.6s                       │
+│  Agent Active:               0s                          │
+│    » API Time:               0s (0.0%)                   │
+│    » Tool Time:              0s (0.0%)                   │
+│                                                          │
+│                                                          │
+╰──────────────────────────────────────────────────────────╯
+
+[?1004l[?2004l]2;
