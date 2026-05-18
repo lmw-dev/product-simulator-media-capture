@@ -7,4 +7,9 @@ data/*.sqlite
 data/*.sqlite-*
 .env
 .env.local
-
+logs/
+*.log
+data/youtube_monitor/logs/
+data/youtube_monitor/*.csv
+data/youtube_monitor/*.jsonl
+data/youtube_monitor/seen_video_ids.txt
