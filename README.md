@@ -277,6 +277,31 @@ runner 在 `--from-pool` 模式下会自动回写状态：
 
 ---
 
+### YouTube 视频自动监控 (YouTube Monitor)
+
+用于定时采集科技博主的最新视频 URL，并过滤出符合时长（默认 10-25 分钟）的视频，自动落盘为 CSV 与 JSONL，供每日执行池消费。
+
+#### 1) 环境配置
+请在项目根目录下的 `.env` 文件中配置您的 `YOUTUBE_API_KEY`（若未配置，脚本将尝试使用 `yt-dlp` 降级抓取）。
+
+#### 2) 修改监控频道
+编辑 `config/youtube_channels.yaml` 增减您需要监控的频道。
+
+#### 3) 手动运行
+```bash
+# 激活 Python 虚拟环境（如适用）
+python src/youtube_monitor.py --recent-days 14 --min-minutes 10 --max-minutes 25
+```
+
+#### 4) 部署定时任务
+脚本附带了 macOS 定时任务模板，可配置为每天 08:00 自动执行：
+```bash
+cp scripts/launchd/com.lmw.youtube-monitor.plist ~/Library/LaunchAgents/
+launchctl load ~/Library/LaunchAgents/com.lmw.youtube-monitor.plist
+```
+
+---
+
 ### 自动化定时运行 (macOS)
 
 为了实现无人值守，我们提供了 `launchd` 配置：
