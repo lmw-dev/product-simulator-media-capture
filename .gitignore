@@ -5,3 +5,6 @@ outputs/*
 playwright/.auth
 data/*.sqlite
 data/*.sqlite-*
+.env
+.env.local
+
