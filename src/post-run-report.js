@@ -65,6 +65,108 @@ function computeReview(evidence) {
   };
 }
 
+// ─── 质检集成 ──────────────────────────────────────────────────
+
+function runQualityInspection(projectDir, runDir) {
+  const inspectorPath = path.join(projectDir, 'src', 'quality-inspector.js');
+  if (!fs.existsSync(inspectorPath)) {
+    console.warn('[REPORT] quality-inspector.js not found, skipping inspection.');
+    return null;
+  }
+
+  console.log('[REPORT] Running quality inspection...');
+  const result = spawnSync('node', [inspectorPath, '--run-dir', runDir], {
+    encoding: 'utf-8',
+    timeout: 180000, // 3 min timeout
+  });
+
+  if (result.status !== 0) {
+    console.warn(`[REPORT] Quality inspection failed: ${result.stderr || result.stdout}`);
+    return null;
+  }
+
+  // 读取生成的报告
+  const reportPath = path.join(runDir, 'quality-report.json');
+  if (fs.existsSync(reportPath)) {
+    try {
+      return JSON.parse(fs.readFileSync(reportPath, 'utf-8'));
+    } catch (e) {
+      console.warn(`[REPORT] Failed to parse quality report: ${e.message}`);
+      return null;
+    }
+  }
+  return null;
+}
+
+function readQualityHistory(projectDir) {
+  const historyPath = path.join(projectDir, 'data', 'quality-history.json');
+  if (!fs.existsSync(historyPath)) return [];
+  try {
+    return JSON.parse(fs.readFileSync(historyPath, 'utf-8'));
+  } catch (e) {
+    return [];
+  }
+}
+
+function formatQualitySection(qualityReport, history) {
+  if (!qualityReport || !qualityReport.llmAvailable) {
+    return '\n📊 质检: LLM 不可用（降级为基础统计）';
+  }
+
+  const score = qualityReport.overallScore;
+  const label = qualityReport.overallLabel;
+  const scoreEmoji = score >= 4 ? '🟢' : score >= 3 ? '🟡' : '🔴';
+
+  let msg = `\n${scoreEmoji} 质检评分: ${score}/5 (${label})`;
+
+  // 维度明细
+  if (qualityReport.scores) {
+    const dims = [];
+    for (const [dim, val] of Object.entries(qualityReport.scores)) {
+      const dimEmoji = val.score >= 4 ? '✓' : val.score >= 3 ? '~' : '✗';
+      const dimName = {
+        fidelity: '保真度',
+        structure: '结构化',
+        terminology: '术语识别',
+        usability: '可用性',
+        tweetQuality: '推文质量',
+      }[dim] || dim;
+      dims.push(`${dimEmoji} ${dimName}: ${val.score}`);
+    }
+    msg += `\n  ${dims.join(' | ')}`;
+  }
+
+  // 趋势对比
+  if (history.length >= 2) {
+    const prev = history[history.length - 2];
+    const diff = (score - prev.overallScore).toFixed(1);
+    if (diff > 0) msg += `\n📈 趋势: +${diff}（较上次提升）`;
+    else if (diff < 0) msg += `\n📉 趋势: ${diff}（较上次下降）`;
+    else msg += `\n➡️ 趋势: 持平`;
+  }
+
+  // 关键问题
+  const criticals = (qualityReport.issues || []).filter(i => i.severity === 'critical');
+  if (criticals.length > 0) {
+    msg += `\n🚨 严重问题 (${criticals.length}):`;
+    for (const issue of criticals.slice(0, 3)) {
+      msg += `\n  • ${issue.description}`;
+    }
+  }
+
+  // 优化建议（取前 2 条）
+  if (qualityReport.suggestions && qualityReport.suggestions.length > 0) {
+    msg += `\n💡 建议:`;
+    for (const s of qualityReport.suggestions.slice(0, 2)) {
+      msg += `\n  → ${s}`;
+    }
+  }
+
+  return msg;
+}
+
+// ─── VNI (保留原有逻辑) ────────────────────────────────────────
+
 function buildVniPrompt(evidence) {
   return `You are Hermes, a top Tech Influencer. 
 Upgrade these raw tweets into "High-Quality Growth Assets".
@@ -87,7 +189,6 @@ function runHermesVni(evidence, timeout) {
   const result = spawnSync('openclaw', args, { encoding: 'utf-8' });
   if (result.status !== 0) throw new Error(`Hermes VNI failed: ${result.stderr || result.stdout}`);
   
-  // Basic extraction from OpenClaw output
   try {
     const out = JSON.parse(result.stdout);
     return out.reply || out.content || out.text || result.stdout;
@@ -96,11 +197,14 @@ function runHermesVni(evidence, timeout) {
   }
 }
 
+// ─── 主流程 ────────────────────────────────────────────────────
+
 async function main() {
   const argv = yargs(hideBin(process.argv))
     .option('project-dir', { type: 'string', default: path.join(__dirname, '..') })
     .option('channel-id', { type: 'string', default: DEFAULT_CHANNEL_ID })
     .option('vni', { type: 'boolean', default: true })
+    .option('quality', { type: 'boolean', default: true, describe: 'Run quality inspection' })
     .parse();
 
   const projectDir = path.resolve(argv.projectDir);
@@ -110,6 +214,13 @@ async function main() {
   const { evidencePath, evidence } = readEvidencePack(runDir);
   const review = computeReview(evidence);
 
+  // 质检
+  let qualityReport = null;
+  if (argv.quality && evidence.status === 'success') {
+    qualityReport = runQualityInspection(projectDir, runDir);
+  }
+
+  // VNI
   let vniOutput = null;
   if (argv.vni && evidence.status === 'success') {
     try {
@@ -122,12 +233,28 @@ async function main() {
     }
   }
 
-  let msg = `📌 Daily Runner Report\n- 执行状态: ${review.statusLabel}\n- Run ID: ${evidence.runId}\n- 审核结论: ${review.reviewLevel}`;
-  if (vniOutput) {
-    msg += `\n\n🚀 [Hermes VNI Active] 灵魂注入成功！\n${vniOutput.substring(0, 500)}...`;
+  // 构建报告
+  const history = readQualityHistory(projectDir);
+  let msg = `📌 Daily Runner Report`;
+  msg += `\n- 执行状态: ${review.statusLabel}`;
+  msg += `\n- Run ID: ${evidence.runId}`;
+  msg += `\n- 审核结论: ${review.reviewLevel}`;
+  msg += `\n- 文章: ${review.articleChars} 字符 | 推文: ${review.tweetsCount} 条`;
+  if (review.durationMs) {
+    msg += `\n- 耗时: ${Math.round(review.durationMs / 1000)}s`;
   }
 
-  spawnSync('openclaw', ['message', 'send', '--channel', 'discord', '--target', argv.channel_id || DEFAULT_CHANNEL_ID, '--message', msg]);
+  // 质检区块
+  msg += formatQualitySection(qualityReport, history);
+
+  // VNI 区块
+  if (vniOutput) {
+    msg += `\n\n🚀 [Hermes VNI] 灵魂注入成功\n${vniOutput.substring(0, 500)}...`;
+  }
+
+  const r = spawnSync('openclaw', ['message', 'send', '--channel', 'discord', '--target', argv.channelId || DEFAULT_CHANNEL_ID, '--message', msg], {encoding:'utf-8'}); 
+  console.log(r.stdout || '');
+  if (r.stderr) console.error(r.stderr);
   console.log('[REPORT] Dispatched to Discord.');
 }
 
