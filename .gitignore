@@ -5,6 +5,9 @@ outputs/*
 playwright/.auth
 data/*.sqlite
 data/*.sqlite-*
+data/*.db
+data/quality-history.json
+data/quality-backlog.md
 .env
 .env.local
 logs/
