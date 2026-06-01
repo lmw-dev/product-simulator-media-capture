@@ -1,4 +1,5 @@
 #!/bin/bash
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 # run-daily.sh
 # Phase 3 Daily Trial Run (Script Snap)
 
@@ -51,7 +52,7 @@ for url in urls:
   echo "" >> "${INBOX_FILE}"
 fi
 
-# 2. 从 Pool 跑单
+# 2. 从 Pool 跑单（自动重试 failed URL，无需手动清理）
 echo "-> Running analysis from pool..." >> "${LOG_FILE}"
 set +e
 "${NODE}" src/run-single-analysis.js --from-pool --headless >> "${LOG_FILE}" 2>&1

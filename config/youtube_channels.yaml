@@ -1,5 +1,64 @@
 channels:
+  # Original
   - name: Alex Finn
     url: https://www.youtube.com/@AlexFinnOfficial/videos
   - name: Riley Brown
     url: https://www.youtube.com/@rileybrownai/videos
+
+  # AI、技术与初创企业
+  - name: The AI Daily Brief
+    url: https://www.youtube.com/@NLW/videos
+  - name: Andrej Karpathy
+    url: https://www.youtube.com/@AndrejKarpathy/videos
+  - name: No Priors
+    url: https://www.youtube.com/@NoPriorsPodcast/videos
+  - name: Latent Space
+    url: https://www.youtube.com/@LatentSpacePod/videos
+  - name: Y Combinator
+    url: https://www.youtube.com/@ycombinator/videos
+  - name: South Park Commons
+    url: https://www.youtube.com/@SouthParkCommons/videos
+  - name: Microsoft Developer
+    url: https://www.youtube.com/@MicrosoftDeveloper/videos
+  - name: The Browser Company
+    url: https://www.youtube.com/@TheBrowserCompany/videos
+
+  # 产品、增长与访谈
+  - name: Lenny's Podcast
+    url: https://www.youtube.com/@LennysPodcast/videos
+  - name: Greg Isenberg
+    url: https://www.youtube.com/@gregisenberg/videos
+  - name: Peter Yang
+    url: https://www.youtube.com/@petergyang/videos
+
+  # 开发、效率与工具
+  - name: Mike Schmitz
+    url: https://www.youtube.com/@MikeSchmitz/videos
+  - name: Chris Raroque
+    url: https://www.youtube.com/@chrisraroque/videos
+  - name: blondiebytes
+    url: https://www.youtube.com/@blondiebytes/videos
+  - name: Mikey No Code
+    url: https://www.youtube.com/@MikeyNoCode/videos
+  - name: Goose OSS
+    url: https://www.youtube.com/@goose-oss/videos
+  - name: Astro K Joseph
+    url: https://www.youtube.com/@AstroKJoseph/videos
+
+  # 硬件与基础设施
+  - name: ServersatHome
+    url: https://www.youtube.com/@ServersatHome/videos
+  - name: PC Tech Hustle
+    url: https://www.youtube.com/@PCTechHustle/videos
+  - name: TechByTravis
+    url: https://www.youtube.com/@TechByTravis/videos
+
+  # 其他特定频道
+  - name: Unsupervised Learning
+    url: https://www.youtube.com/@UnsupervisedLearningAI/videos
+  - name: The Breakdown
+    url: https://www.youtube.com/@BreakdownPodcast/videos
+  - name: STS
+    url: https://www.youtube.com/@STS-Tech/videos
+  - name: Cheng-Hsuan Li
+    url: https://www.youtube.com/@chenghsuanli/videos
