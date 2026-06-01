@@ -184,7 +184,7 @@ Rules:
 
 function runHermesVni(evidence, timeout) {
   const prompt = buildVniPrompt(evidence);
-  const args = ['agent', '--agent', 'hermes', '--message', prompt, '--timeout', String(timeout), '--thinking', 'low'];
+  const args = ['agent', '--agent', 'main', '--message', prompt, '--timeout', String(timeout), '--thinking', 'low'];
   console.log('[VNI] Calling Hermes for soul injection...');
   const result = spawnSync('openclaw', args, { encoding: 'utf-8' });
   if (result.status !== 0) throw new Error(`Hermes VNI failed: ${result.stderr || result.stdout}`);
@@ -214,24 +214,33 @@ async function main() {
   const { evidencePath, evidence } = readEvidencePack(runDir);
   const review = computeReview(evidence);
 
-  // 质检
+  // 双通道并行：质检 + VNI 独立执行，互不阻塞
   let qualityReport = null;
-  if (argv.quality && evidence.status === 'success') {
-    qualityReport = runQualityInspection(projectDir, runDir);
-  }
-
-  // VNI
   let vniOutput = null;
-  if (argv.vni && evidence.status === 'success') {
-    try {
-      vniOutput = runHermesVni(evidence, 180);
-      const vniPath = path.join(runDir, 'hermes-vni-refinement.md');
-      fs.writeFileSync(vniPath, vniOutput, 'utf-8');
-      console.log(`[VNI] Results saved to ${vniPath}`);
-    } catch (e) {
-      console.warn(`[VNI] Failed: ${e.message}`);
+
+  const runQuality = async () => {
+    if (argv.quality && evidence.status === 'success') {
+      qualityReport = runQualityInspection(projectDir, runDir);
     }
-  }
+  };
+
+  const runVni = async () => {
+    if (argv.vni && evidence.status === 'success') {
+      try {
+        vniOutput = runHermesVni(evidence, 180);
+        const vniPath = path.join(runDir, 'hermes-vni-refinement.md');
+        fs.writeFileSync(vniPath, vniOutput, 'utf-8');
+        console.log(`[VNI] Results saved to ${vniPath}`);
+      } catch (e) {
+        console.warn(`[VNI] Failed: ${e.message}`);
+      }
+    }
+  };
+
+  // 并行启动两个通道
+  const [qualityResult, vniResult] = await Promise.allSettled([runQuality(), runVni()]);
+  if (qualityResult.status === 'rejected') console.warn(`[REPORT] Quality channel error: ${qualityResult.reason}`);
+  if (vniResult.status === 'rejected') console.warn(`[REPORT] VNI channel error: ${vniResult.reason}`);
 
   // 构建报告
   const history = readQualityHistory(projectDir);
