@@ -129,6 +129,46 @@ yargs(hideBin(process.argv))
       console.log(JSON.stringify(rows, null, 2));
     })
   )
+  .command(
+    'retryable',
+    'List failed URLs eligible for auto-retry',
+    () => {},
+    (argv) => withRepo(argv.dbPath, (repo) => {
+      const row = repo.getNextRetryableUrl();
+      if (row) {
+        console.log('Next retryable URL:');
+        printRow(row);
+      } else {
+        console.log('No retryable URLs found.');
+      }
+    })
+  )
+  .command(
+    'reset',
+    'Reset a failed URL back to pending for manual retry',
+    (cmd) => cmd
+      .option('id', { type: 'number' })
+      .option('url', { type: 'string' })
+      .option('notes', { type: 'string' })
+      .check((args) => {
+        if (!args.id && !args.url) {
+          throw new Error('Either --id or --url is required.');
+        }
+        return true;
+      }),
+    (argv) => withRepo(argv.dbPath, (repo) => {
+      let id = argv.id;
+      if (!id && argv.url) {
+        const row = repo.getByUrl(argv.url);
+        if (!row) { console.error('URL not found.'); process.exitCode = 1; return; }
+        id = row.id;
+      }
+      const row = repo.resetToPending(id, { notes: argv.notes || 'Manual reset via CLI.' });
+      if (!row) { console.error('Record not found or not updated.'); process.exitCode = 1; return; }
+      console.log('Reset to pending:');
+      printRow(row);
+    })
+  )
   .demandCommand(1)
   .strict()
   .help()

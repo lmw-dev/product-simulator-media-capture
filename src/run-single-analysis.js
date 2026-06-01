@@ -66,7 +66,21 @@ async function main() {
       poolRecord = poolRepo.getNextPendingUrl();
 
       if (!poolRecord) {
-        throw new Error(`[URL POOL EMPTY] No pending URL in ${argv.poolDb || config.urlPoolDbPath}`);
+        // No pending URLs — try retryable failed URLs
+        poolRecord = poolRepo.getNextRetryableUrl();
+        if (poolRecord) {
+          logger.info(`No pending URLs. Retrying failed URL: id=${poolRecord.id}, retry=${poolRecord.retry_count + 1}, url=${poolRecord.url}`);
+          // Reset to pending so it gets a fresh run
+          poolRepo.resetToPending(poolRecord.id, {
+            notes: `Auto-retry (attempt ${(poolRecord.retry_count || 0) + 1}) by runner.`
+          });
+          // Re-fetch the updated record
+          poolRecord = poolRepo.getNextPendingUrl();
+        }
+      }
+
+      if (!poolRecord) {
+        throw new Error(`[URL POOL EMPTY] No pending or retryable URL in ${argv.poolDb || config.urlPoolDbPath}`);
       }
 
       targetUrl = poolRecord.url;

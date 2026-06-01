@@ -6,6 +6,20 @@ const { normalizeUrl } = require('./url-normalizer');
 
 const VALID_STATUSES = new Set(['pending', 'processed', 'failed', 'skipped']);
 
+const RETRYABLE_ERROR_PATTERNS = [
+  'timeout',
+  'Failed to reach success state',
+  'locator.waitFor: Timeout',
+];
+const NON_RETRYABLE_ERROR_PATTERNS = [
+  'AUTH REQUIRED',
+  'login page',
+  'Auth state missing',
+  'ProcessSingleton',
+  'SingletonLock',
+];
+const MAX_RETRIES = 2;
+
 class UrlPoolRepository {
   constructor(dbPath = config.urlPoolDbPath) {
     this.dbPath = dbPath;
@@ -16,6 +30,7 @@ class UrlPoolRepository {
     this.db.pragma('foreign_keys = ON');
 
     this.initSchema();
+    this.migrateSchema();
     this.prepareStatements();
   }
 
@@ -43,6 +58,15 @@ class UrlPoolRepository {
     `);
   }
 
+  migrateSchema() {
+    // Add retry_count column if missing
+    const columns = this.db.prepare("PRAGMA table_info(source_urls)").all();
+    const hasRetryCount = columns.some(c => c.name === 'retry_count');
+    if (!hasRetryCount) {
+      this.db.exec('ALTER TABLE source_urls ADD COLUMN retry_count INTEGER NOT NULL DEFAULT 0');
+    }
+  }
+
   prepareStatements() {
     this.statements = {
       insert: this.db.prepare(`
@@ -66,6 +90,15 @@ class UrlPoolRepository {
         FROM source_urls
         WHERE status = 'pending'
         ORDER BY first_added_at ASC, id ASC
+        LIMIT 1
+      `),
+      getNextRetryable: this.db.prepare(`
+        SELECT *
+        FROM source_urls
+        WHERE status = 'failed'
+          AND retry_count < ?
+          AND (last_error IS NULL OR last_error NOT LIKE '%AUTH REQUIRED%' AND last_error NOT LIKE '%login page%' AND last_error NOT LIKE '%ProcessSingleton%')
+        ORDER BY retry_count ASC, updated_at ASC
         LIMIT 1
       `),
       updateStatusById: this.db.prepare(`
@@ -181,6 +214,10 @@ class UrlPoolRepository {
     }
 
     const now = new Date().toISOString();
+    const current = this.statements.getById.get(id);
+    const isRetry = status === 'failed' && current && this.isRetryableError(options.error);
+    const newRetryCount = isRetry ? ((current.retry_count || 0) + 1) : (current ? current.retry_count : 0);
+
     const payload = {
       id,
       status,
@@ -191,10 +228,39 @@ class UrlPoolRepository {
       notes: options.notes || null,
     };
 
+    // Update retry_count separately (included in UPDATE only for failed+retryable)
     const result = this.statements.updateStatusById.run(payload);
     if (result.changes === 0) {
       return null;
     }
+    if (isRetry) {
+      this.db.prepare('UPDATE source_urls SET retry_count = ? WHERE id = ?').run(newRetryCount, id);
+    }
+    return this.statements.getById.get(id);
+  }
+
+  isRetryableError(errorMsg) {
+    if (!errorMsg) return false;
+    if (NON_RETRYABLE_ERROR_PATTERNS.some(p => errorMsg.includes(p))) return false;
+    return RETRYABLE_ERROR_PATTERNS.some(p => errorMsg.includes(p));
+  }
+
+  getNextRetryableUrl() {
+    return this.statements.getNextRetryable.get(MAX_RETRIES) || null;
+  }
+
+  resetToPending(id, options = {}) {
+    const now = new Date().toISOString();
+    const result = this.db.prepare(`
+      UPDATE source_urls
+      SET status = 'pending', updated_at = ?, last_error = NULL,
+          notes = CASE
+            WHEN notes IS NULL OR TRIM(notes) = '' THEN ?
+            ELSE notes || CHAR(10) || ?
+          END
+      WHERE id = ?
+    `).run(now, options.notes || null, options.notes || null, id);
+    if (result.changes === 0) return null;
     return this.statements.getById.get(id);
   }
 
