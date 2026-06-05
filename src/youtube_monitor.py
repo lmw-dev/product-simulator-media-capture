@@ -28,11 +28,8 @@ try:
 except ImportError:
     HAS_GOOGLE_API = False
 
-try:
-    import yt_dlp
-    HAS_YT_DLP = True
-except ImportError:
-    HAS_YT_DLP = False
+# yt-dlp 通过 subprocess 调用二进制，不再依赖 Python 模块版本
+HAS_YT_DLP = True
 
 # 配置日志
 logging.basicConfig(
@@ -122,12 +119,14 @@ class YouTubeMonitor:
             logger.info(f"正在扫描频道: {name} ({url})")
             
             videos = []
-            if self.api_key and HAS_GOOGLE_API:
-                videos = self._fetch_via_api(channel)
-            elif HAS_YT_DLP:
+            # 优先 yt-dlp（二进制，走系统 proxy），API 作回退
+            if HAS_YT_DLP:
                 videos = self._fetch_via_yt_dlp(channel)
-            else:
-                logger.error("缺少必要依赖: 请安装 google-api-python-client 或 yt-dlp")
+            if not videos and self.api_key and HAS_GOOGLE_API:
+                logger.info("yt-dlp 未获取到视频，尝试 API...")
+                videos = self._fetch_via_api(channel)
+            if not videos and not HAS_YT_DLP and not (self.api_key and HAS_GOOGLE_API):
+                logger.error("缺少必要依赖: 请安装 yt-dlp 或 google-api-python-client")
                 break
             
             filtered = self._filter_videos(videos)
@@ -214,45 +213,72 @@ class YouTubeMonitor:
             return []
 
     def _fetch_via_yt_dlp(self, channel: Dict) -> List[Dict]:
-        """使用 yt-dlp 获取视频"""
-        ydl_opts = {
-            'extract_flat': True,
-            'quiet': True,
-            'playlistend': self.args.max_results,
-            'skip_download': True,
-        }
-        
-        try:
-            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(channel.get('url'), download=False)
-                if 'entries' not in info:
-                    return []
-                
-                results = []
-                for entry in info['entries']:
-                    if not entry: continue
-                    
-                    v_id = entry.get('id')
-                    duration = entry.get('duration') or 0
-                    
-                    # yt-dlp 的日期通常是 YYYYMMDD
-                    raw_date = entry.get('upload_date')
-                    if raw_date:
-                        published_at = datetime.strptime(raw_date, '%Y%m%d').replace(tzinfo=timezone.utc).isoformat().replace('+00:00', 'Z')
-                    else:
-                        published_at = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
+        """使用 yt-dlp 二进制获取视频（subprocess 调用，兼容旧 Python 环境）"""
+        import subprocess, shutil, json as _json
 
-                    results.append({
-                        'video_id': v_id,
-                        'channel': channel.get('name'),
-                        'title': entry.get('title'),
-                        'url': f"https://www.youtube.com/watch?v={v_id}",
-                        'duration_seconds': int(duration),
-                        'duration_minutes': round(duration / 60, 1),
-                        'published_at': published_at,
-                        'collected_at': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
-                    })
-                return results
+        # 优先用 homebrew 的新版 yt-dlp，回退到 PATH 上的
+        ytdlp_bin = '/opt/homebrew/bin/yt-dlp'
+        if not os.path.isfile(ytdlp_bin):
+            ytdlp_bin = shutil.which('yt-dlp') or 'yt-dlp'
+
+        url = channel.get('url', '')
+        max_results = self.args.max_results
+
+        try:
+            # 用 --dump-json 获取完整元数据（每行一个 JSON 对象）
+            cmd = [
+                ytdlp_bin,
+                '--flat-playlist',
+                '--quiet',
+                '--no-warnings',
+                '--skip-download',
+                '--playlist-end', str(max_results),
+                '--dump-json',
+                url
+            ]
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
+            if result.returncode != 0:
+                logger.error(f"yt-dlp 获取失败: {result.stderr.strip()}")
+                return []
+
+            results = []
+            for line in result.stdout.strip().splitlines():
+                if not line.strip():
+                    continue
+                try:
+                    entry = _json.loads(line)
+                except _json.JSONDecodeError:
+                    continue
+
+                v_id = entry.get('id')
+                if not v_id:
+                    continue
+                duration = entry.get('duration') or 0
+                raw_date = entry.get('upload_date')
+                if raw_date and len(str(raw_date)) == 8:
+                    published_at = datetime.strptime(str(raw_date), '%Y%m%d').replace(tzinfo=timezone.utc).isoformat().replace('+00:00', 'Z')
+                else:
+                    published_at = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
+
+                title = entry.get('title', '')
+                # 有些条目 title 为空或 NA，跳过
+                if not title or title == 'NA':
+                    continue
+
+                results.append({
+                    'video_id': v_id,
+                    'channel': channel.get('name'),
+                    'title': title,
+                    'url': f"https://www.youtube.com/watch?v={v_id}",
+                    'duration_seconds': int(duration) if duration else 0,
+                    'duration_minutes': round(duration / 60, 1) if duration else 0,
+                    'published_at': published_at,
+                    'collected_at': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
+                })
+            return results
+        except subprocess.TimeoutExpired:
+            logger.error(f"yt-dlp 超时: {url}")
+            return []
         except Exception as e:
             logger.error(f"yt-dlp 获取失败: {e}")
             return []

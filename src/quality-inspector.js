@@ -15,9 +15,9 @@
 
 const fs = require('fs');
 const path = require('path');
-const { spawnSync } = require('child_process');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
+const { callLLM } = require('./llm-client');
 
 // ─── 质检 Prompt ───────────────────────────────────────────────
 
@@ -83,26 +83,6 @@ OUTPUT FORMAT (strict JSON, no markdown fences):
 }`;
 }
 
-// ─── LLM 调用 ──────────────────────────────────────────────────
-
-function callLLM(prompt, timeoutSeconds = 120) {
-  // 优先用 OpenClaw agent 调用（复用已有鉴权）
-  const result = spawnSync('openclaw', [
-    'agent',
-    '--agent', 'daedalus',
-    '--message', prompt,
-    '--timeout', String(timeoutSeconds),
-    '--thinking', 'low',
-  ], { encoding: 'utf-8', timeout: (timeoutSeconds + 30) * 1000 });
-
-  if (result.status !== 0) {
-    // Fallback: try direct API call if available
-    throw new Error(`LLM call failed: ${result.stderr || result.stdout}`);
-  }
-
-  return result.stdout;
-}
-
 function extractJSON(text) {
   // Try to parse directly
   try {
@@ -140,7 +120,7 @@ function resolveRunDir(projectDir, explicitRunDir) {
   return runs.length > 0 ? path.join(latestDay, runs[0]) : null;
 }
 
-function main() {
+async function main() {
   const argv = yargs(hideBin(process.argv))
     .option('project-dir', { type: 'string', default: path.join(__dirname, '..') })
     .option('run-dir', { type: 'string', describe: 'Explicit run directory' })
@@ -183,7 +163,7 @@ function main() {
   const prompt = buildQualityPrompt(articleText, tweetsText, sourceUrl);
   let llmOutput;
   try {
-    llmOutput = callLLM(prompt);
+    llmOutput = await callLLM(prompt);
   } catch (e) {
     console.error(`[QUALITY] LLM call failed: ${e.message}`);
     // 降级：输出基础统计而非 LLM 评分

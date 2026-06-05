@@ -5,7 +5,7 @@
 # 2. 将新采集的 URL 写入 youtube-url-inbox.md（供 12:00 Phase 3 消费）
 
 set -e
-export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/Users/liumingwei/Library/Python/3.9/bin:$PATH"
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
 
 PROJECT_DIR="/Volumes/ExternalLiumw/lavori/01_code/product-simulator-media-capture"
 INBOX_FILE="${PROJECT_DIR}/youtube-url-inbox.md"
