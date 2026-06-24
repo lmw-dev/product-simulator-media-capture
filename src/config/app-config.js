@@ -19,7 +19,7 @@ const config = {
 
   timeout: {
     pageLoad: 60000,
-    analysisCompletion: 600000,
+    analysisCompletion: 900000,
     selectorWait: 15000,
   },
   devMode: process.env.DEV_MODE === 'true'

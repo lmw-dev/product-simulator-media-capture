@@ -52,11 +52,37 @@ for url in urls:
   echo "" >> "${INBOX_FILE}"
 fi
 
-# 2. 从 Pool 跑单（自动重试 failed URL，无需手动清理）
+# 1.5 清理残留 SingletonLock（防止 Chrome 崩溃后锁文件残留导致 ProcessSingleton 冲突）
+CHROME_PROFILE_DIR="/Users/liumingwei/Library/Application Support/Google/Chrome/ScriptSnapBot"
+if [ -f "${CHROME_PROFILE_DIR}/SingletonLock" ]; then
+  # 检查是否有 Chrome 进程正在使用该 profile
+  if ! pgrep -f "user-data-dir=${CHROME_PROFILE_DIR}" > /dev/null 2>&1; then
+    echo "-> Cleaning stale SingletonLock (no Chrome process using profile)..." >> "${LOG_FILE}"
+    rm -f "${CHROME_PROFILE_DIR}/SingletonLock"
+  else
+    echo "-> WARNING: SingletonLock exists and Chrome process is active — skipping cleanup" >> "${LOG_FILE}"
+  fi
+fi
+
+# 2. 从 Pool 跑单（超时自动重试一次）
 echo "-> Running analysis from pool..." >> "${LOG_FILE}"
 set +e
-"${NODE}" src/run-single-analysis.js --from-pool --headless >> "${LOG_FILE}" 2>&1
-EXIT_CODE=$?
+MAX_ATTEMPTS=2
+ATTEMPT=1
+while [ ${ATTEMPT} -le ${MAX_ATTEMPTS} ]; do
+  echo "-> Attempt ${ATTEMPT}/${MAX_ATTEMPTS}..." >> "${LOG_FILE}"
+  "${NODE}" src/run-single-analysis.js --from-pool --headless >> "${LOG_FILE}" 2>&1
+  EXIT_CODE=$?
+  if [ ${EXIT_CODE} -eq 0 ]; then
+    break
+  fi
+  if [ ${ATTEMPT} -lt ${MAX_ATTEMPTS} ]; then
+    echo "-> Attempt ${ATTEMPT} failed (exit=${EXIT_CODE}), retrying once..." >> "${LOG_FILE}"
+  else
+    echo "-> Attempt ${ATTEMPT} failed (exit=${EXIT_CODE}), no more retries." >> "${LOG_FILE}"
+  fi
+  ATTEMPT=$((ATTEMPT + 1))
+done
 echo "-> Running post-run reporting hook..." >> "${LOG_FILE}"
 "${NODE}" src/post-run-report.js >> "${LOG_FILE}" 2>&1
 REPORT_EXIT_CODE=$?
