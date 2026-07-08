@@ -15,12 +15,9 @@
 
 const fs = require('fs');
 const path = require('path');
-const { spawnSync } = require('child_process');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
-
-// 加载环境变量
-require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+const { callLLM } = require('./llm-client');
 
 // ─── 质检 Prompt ───────────────────────────────────────────────
 
@@ -84,50 +81,6 @@ OUTPUT FORMAT (strict JSON, no markdown fences):
     "<actionable improvement suggestion>"
   ]
 }`;
-}
-
-// ─── LLM 调用 ──────────────────────────────────────────────────
-
-async function callLLM(prompt, timeoutSeconds = 120) {
-  const apiKey = process.env.LLM_API_KEY;
-  const baseUrl = process.env.LLM_BASE_URL || 'https://api.deepseek.com/chat/completions';
-  const model = process.env.LLM_MODEL || 'deepseek-chat';
-
-  if (!apiKey) {
-    throw new Error('LLM_API_KEY is not configured in .env');
-  }
-
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), timeoutSeconds * 1000);
-
-  try {
-    const response = await fetch(baseUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        model: model,
-        messages: [{ role: 'user', content: prompt }],
-        temperature: 0.1, // 低温度以保持结构化输出稳定
-      }),
-      signal: controller.signal
-    });
-
-    clearTimeout(timeoutId);
-
-    if (!response.ok) {
-      const errText = await response.text();
-      throw new Error(`HTTP ${response.status} - ${errText}`);
-    }
-
-    const data = await response.json();
-    return data.choices[0].message.content;
-  } catch (err) {
-    clearTimeout(timeoutId);
-    throw err;
-  }
 }
 
 function extractJSON(text) {
@@ -355,7 +308,4 @@ function appendBacklog(projectDir, report) {
   console.log(`[QUALITY] Backlog updated: ${lines.length} new issues`);
 }
 
-main().catch(err => {
-  console.error('[QUALITY] Fatal error:', err);
-  process.exit(1);
-});
+main();
