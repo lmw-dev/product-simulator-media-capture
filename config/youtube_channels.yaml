@@ -1,64 +1,64 @@
 channels:
   # Original
   - name: Alex Finn
-    url: https://www.youtube.com/@AlexFinnOfficial/videos
+    url: https://www.youtube.com/channel/UCfQNB91qRP_5ILeu_S_bSkg/videos
   - name: Riley Brown
-    url: https://www.youtube.com/@rileybrownai/videos
+    url: https://www.youtube.com/channel/UCMcoud_ZW7cfxeIugBflSBw/videos
 
   # AI、技术与初创企业
-  - name: The AI Daily Brief
-    url: https://www.youtube.com/@NLW/videos
+  - name: The AI Daily Brief (NLW)
+    url: https://www.youtube.com/channel/UCKelCK4ZaO6HeEI1KQjqzWA/videos
   - name: Andrej Karpathy
-    url: https://www.youtube.com/@AndrejKarpathy/videos
+    url: https://www.youtube.com/channel/UCXUPKJO5MZQN11PqgIvyuvQ/videos
   - name: No Priors
-    url: https://www.youtube.com/@NoPriorsPodcast/videos
+    url: https://www.youtube.com/channel/UCSI7h9hydQ40K5MJHnCrQvw/videos
   - name: Latent Space
-    url: https://www.youtube.com/@LatentSpacePod/videos
+    url: https://www.youtube.com/channel/UCxBcwypKK-W3GHd_RZ9FZrQ/videos
   - name: Y Combinator
-    url: https://www.youtube.com/@ycombinator/videos
+    url: https://www.youtube.com/channel/UCcefcZRL2oaA_uBNeo5UOWg/videos
   - name: South Park Commons
-    url: https://www.youtube.com/@SouthParkCommons/videos
+    url: https://www.youtube.com/channel/UCMR-rPSUI34DRQXUkvFuIUQ/videos
   - name: Microsoft Developer
-    url: https://www.youtube.com/@MicrosoftDeveloper/videos
+    url: https://www.youtube.com/channel/UCsMica-v34Irf9KVTh6xx-g/videos
   - name: The Browser Company
-    url: https://www.youtube.com/@TheBrowserCompany/videos
+    url: https://www.youtube.com/channel/UCT5qXmLacW_a4DE-3EgeOiQ/videos
 
   # 产品、增长与访谈
   - name: Lenny's Podcast
-    url: https://www.youtube.com/@LennysPodcast/videos
+    url: https://www.youtube.com/channel/UC6t1O76G0jYXOAoYCm153dA/videos
   - name: Greg Isenberg
-    url: https://www.youtube.com/@gregisenberg/videos
+    url: https://www.youtube.com/channel/UCPjNBjflYl0-HQtUvOx0Ibw/videos
   - name: Peter Yang
-    url: https://www.youtube.com/@petergyang/videos
+    url: https://www.youtube.com/channel/UC5wC89xbkvUhQzYCiMg6TIA/videos
 
   # 开发、效率与工具
   - name: Mike Schmitz
-    url: https://www.youtube.com/@MikeSchmitz/videos
+    url: https://www.youtube.com/channel/UCiPP7RxE-gtFoPHkNfjVh6Q/videos
   - name: Chris Raroque
-    url: https://www.youtube.com/@chrisraroque/videos
+    url: https://www.youtube.com/channel/UC4x3CR25WSlvMJUtSPPzwwg/videos
   - name: blondiebytes
-    url: https://www.youtube.com/@blondiebytes/videos
+    url: https://www.youtube.com/channel/UC4DwZ2VXM2KWtzHjVk9M_xg/videos
   - name: Mikey No Code
-    url: https://www.youtube.com/@MikeyNoCode/videos
+    url: https://www.youtube.com/channel/UCde0vB0fTwC8AT3sJofFV0w/videos
   - name: Goose OSS
-    url: https://www.youtube.com/@goose-oss/videos
+    url: https://www.youtube.com/channel/UCVLuT_AS687XAJ__-COCRFw/videos
   - name: Astro K Joseph
-    url: https://www.youtube.com/@AstroKJoseph/videos
+    url: https://www.youtube.com/channel/UCcFpPsD8xI0bzj1Y7gjvhrQ/videos
 
   # 硬件与基础设施
   - name: ServersatHome
-    url: https://www.youtube.com/@ServersatHome/videos
+    url: https://www.youtube.com/channel/UCx0ObGO7YJZpPPf6tbHpqPQ/videos
   - name: PC Tech Hustle
-    url: https://www.youtube.com/@PCTechHustle/videos
+    url: https://www.youtube.com/channel/UCI6qcam_3Dbxs7if87vuWrg/videos
   - name: TechByTravis
-    url: https://www.youtube.com/@TechByTravis/videos
+    url: https://www.youtube.com/channel/UCi9AaBuzpok3mIkZQcrRdRA/videos
 
   # 其他特定频道
   - name: Unsupervised Learning
-    url: https://www.youtube.com/@UnsupervisedLearningAI/videos
+    url: https://www.youtube.com/channel/UCnCikd0s4i9KoDtaHPlK-JA/videos
   - name: The Breakdown
-    url: https://www.youtube.com/@BreakdownPodcast/videos
-  - name: STS
-    url: https://www.youtube.com/@STS-Tech/videos
+    url: https://www.youtube.com/channel/UC3sJijG6_ERZU-XzRPUbsPA/videos
+  - name: STS Tech
+    url: https://www.youtube.com/channel/UCXii-8jW9Veullm18EbXi5Q/videos
   - name: Cheng-Hsuan Li
-    url: https://www.youtube.com/@chenghsuanli/videos
+    url: https://www.youtube.com/channel/UCZNzEYQbPNBnFsXKHw1dwFQ/videos

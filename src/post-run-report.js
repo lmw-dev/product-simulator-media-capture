@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { spawnSync } = require('child_process');
+const { spawn, spawnSync } = require('child_process');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
 
@@ -68,34 +68,50 @@ function computeReview(evidence) {
 // ─── 质检集成 ──────────────────────────────────────────────────
 
 function runQualityInspection(projectDir, runDir) {
-  const inspectorPath = path.join(projectDir, 'src', 'quality-inspector.js');
-  if (!fs.existsSync(inspectorPath)) {
-    console.warn('[REPORT] quality-inspector.js not found, skipping inspection.');
-    return null;
-  }
-
-  console.log('[REPORT] Running quality inspection...');
-  const result = spawnSync('node', [inspectorPath, '--run-dir', runDir], {
-    encoding: 'utf-8',
-    timeout: 180000, // 3 min timeout
-  });
-
-  if (result.status !== 0) {
-    console.warn(`[REPORT] Quality inspection failed: ${result.stderr || result.stdout}`);
-    return null;
-  }
-
-  // 读取生成的报告
-  const reportPath = path.join(runDir, 'quality-report.json');
-  if (fs.existsSync(reportPath)) {
-    try {
-      return JSON.parse(fs.readFileSync(reportPath, 'utf-8'));
-    } catch (e) {
-      console.warn(`[REPORT] Failed to parse quality report: ${e.message}`);
-      return null;
+  return new Promise((resolve) => {
+    const inspectorPath = path.join(projectDir, 'src', 'quality-inspector.js');
+    if (!fs.existsSync(inspectorPath)) {
+      console.warn('[REPORT] quality-inspector.js not found, skipping inspection.');
+      return resolve(null);
     }
-  }
-  return null;
+
+    console.log('[REPORT] Running quality inspection...');
+    const child = spawn('node', [inspectorPath, '--run-dir', runDir], {
+      stdio: ['ignore', 'pipe', 'pipe'],
+    });
+
+    let stdout = '', stderr = '';
+    child.stdout.on('data', d => { stdout += d; });
+    child.stderr.on('data', d => { stderr += d; });
+
+    const timer = setTimeout(() => { child.kill(); }, 180000); // 3 min timeout
+
+    child.on('close', (code) => {
+      clearTimeout(timer);
+      if (code !== 0) {
+        console.warn(`[REPORT] Quality inspection failed (exit ${code}): ${stderr || stdout}`);
+        return resolve(null);
+      }
+
+      const reportPath = path.join(runDir, 'quality-report.json');
+      if (fs.existsSync(reportPath)) {
+        try {
+          resolve(JSON.parse(fs.readFileSync(reportPath, 'utf-8')));
+        } catch (e) {
+          console.warn(`[REPORT] Failed to parse quality report: ${e.message}`);
+          resolve(null);
+        }
+      } else {
+        resolve(null);
+      }
+    });
+
+    child.on('error', (err) => {
+      clearTimeout(timer);
+      console.warn(`[REPORT] Quality inspection spawn error: ${err.message}`);
+      resolve(null);
+    });
+  });
 }
 
 function readQualityHistory(projectDir) {
@@ -183,18 +199,38 @@ Rules:
 }
 
 function runHermesVni(evidence, timeout) {
-  const prompt = buildVniPrompt(evidence);
-  const args = ['agent', '--agent', 'hermes', '--message', prompt, '--timeout', String(timeout), '--thinking', 'low'];
-  console.log('[VNI] Calling Hermes for soul injection...');
-  const result = spawnSync('openclaw', args, { encoding: 'utf-8' });
-  if (result.status !== 0) throw new Error(`Hermes VNI failed: ${result.stderr || result.stdout}`);
-  
-  try {
-    const out = JSON.parse(result.stdout);
-    return out.reply || out.content || out.text || result.stdout;
-  } catch (e) {
-    return result.stdout;
-  }
+  return new Promise((resolve, reject) => {
+    const prompt = buildVniPrompt(evidence);
+    const args = ['agent', '--agent', 'main', '--message', prompt, '--timeout', String(timeout), '--thinking', 'low'];
+    console.log('[VNI] Calling Hermes for soul injection...');
+    const child = spawn('openclaw', args, {
+      stdio: ['ignore', 'pipe', 'pipe'],
+    });
+
+    let stdout = '', stderr = '';
+    child.stdout.on('data', d => { stdout += d; });
+    child.stderr.on('data', d => { stderr += d; });
+
+    const timer = setTimeout(() => { child.kill(); }, timeout * 1000);
+
+    child.on('close', (code) => {
+      clearTimeout(timer);
+      if (code !== 0) {
+        return reject(new Error(`Hermes VNI failed (exit ${code}): ${stderr || stdout}`));
+      }
+      try {
+        const out = JSON.parse(stdout);
+        resolve(out.reply || out.content || out.text || stdout);
+      } catch (e) {
+        resolve(stdout);
+      }
+    });
+
+    child.on('error', (err) => {
+      clearTimeout(timer);
+      reject(err);
+    });
+  });
 }
 
 // ─── 主流程 ────────────────────────────────────────────────────
@@ -214,24 +250,33 @@ async function main() {
   const { evidencePath, evidence } = readEvidencePack(runDir);
   const review = computeReview(evidence);
 
-  // 质检
+  // 双通道并行：质检 + VNI 独立执行，互不阻塞
   let qualityReport = null;
-  if (argv.quality && evidence.status === 'success') {
-    qualityReport = runQualityInspection(projectDir, runDir);
-  }
-
-  // VNI
   let vniOutput = null;
-  if (argv.vni && evidence.status === 'success') {
-    try {
-      vniOutput = runHermesVni(evidence, 180);
-      const vniPath = path.join(runDir, 'hermes-vni-refinement.md');
-      fs.writeFileSync(vniPath, vniOutput, 'utf-8');
-      console.log(`[VNI] Results saved to ${vniPath}`);
-    } catch (e) {
-      console.warn(`[VNI] Failed: ${e.message}`);
+
+  const runQuality = async () => {
+    if (argv.quality && evidence.status === 'success') {
+      qualityReport = await runQualityInspection(projectDir, runDir);
     }
-  }
+  };
+
+  const runVni = async () => {
+    if (argv.vni && evidence.status === 'success') {
+      try {
+        vniOutput = await runHermesVni(evidence, 180);
+        const vniPath = path.join(runDir, 'hermes-vni-refinement.md');
+        fs.writeFileSync(vniPath, vniOutput, 'utf-8');
+        console.log(`[VNI] Results saved to ${vniPath}`);
+      } catch (e) {
+        console.warn(`[VNI] Failed: ${e.message}`);
+      }
+    }
+  };
+
+  // 并行启动两个通道
+  const [qualityResult, vniResult] = await Promise.allSettled([runQuality(), runVni()]);
+  if (qualityResult.status === 'rejected') console.warn(`[REPORT] Quality channel error: ${qualityResult.reason}`);
+  if (vniResult.status === 'rejected') console.warn(`[REPORT] VNI channel error: ${vniResult.reason}`);
 
   // 构建报告
   const history = readQualityHistory(projectDir);

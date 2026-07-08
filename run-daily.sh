@@ -60,6 +60,9 @@ EXIT_CODE=$?
 echo "-> Running post-run reporting hook..." >> "${LOG_FILE}"
 "${NODE}" src/post-run-report.js >> "${LOG_FILE}" 2>&1
 REPORT_EXIT_CODE=$?
+
+# 4. 生成状态板
+"${NODE}" src/status-board.js --json >> "${LOG_FILE}" 2>&1
 set -e
 
 echo "=== Run finished: $(date) | run_exit=${EXIT_CODE} | report_exit=${REPORT_EXIT_CODE} ===" >> "${LOG_FILE}"
