@@ -19,6 +19,9 @@ const { spawnSync } = require('child_process');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
 
+// 加载环境变量
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+
 // ─── 质检 Prompt ───────────────────────────────────────────────
 
 function buildQualityPrompt(articleText, tweetsText, sourceUrl) {
@@ -85,22 +88,46 @@ OUTPUT FORMAT (strict JSON, no markdown fences):
 
 // ─── LLM 调用 ──────────────────────────────────────────────────
 
-function callLLM(prompt, timeoutSeconds = 120) {
-  // 优先用 OpenClaw agent 调用（复用已有鉴权）
-  const result = spawnSync('openclaw', [
-    'agent',
-    '--agent', 'daedalus',
-    '--message', prompt,
-    '--timeout', String(timeoutSeconds),
-    '--thinking', 'low',
-  ], { encoding: 'utf-8', timeout: (timeoutSeconds + 30) * 1000 });
+async function callLLM(prompt, timeoutSeconds = 120) {
+  const apiKey = process.env.LLM_API_KEY;
+  const baseUrl = process.env.LLM_BASE_URL || 'https://api.deepseek.com/chat/completions';
+  const model = process.env.LLM_MODEL || 'deepseek-chat';
 
-  if (result.status !== 0) {
-    // Fallback: try direct API call if available
-    throw new Error(`LLM call failed: ${result.stderr || result.stdout}`);
+  if (!apiKey) {
+    throw new Error('LLM_API_KEY is not configured in .env');
   }
 
-  return result.stdout;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutSeconds * 1000);
+
+  try {
+    const response = await fetch(baseUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: model,
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.1, // 低温度以保持结构化输出稳定
+      }),
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      const errText = await response.text();
+      throw new Error(`HTTP ${response.status} - ${errText}`);
+    }
+
+    const data = await response.json();
+    return data.choices[0].message.content;
+  } catch (err) {
+    clearTimeout(timeoutId);
+    throw err;
+  }
 }
 
 function extractJSON(text) {
@@ -140,7 +167,7 @@ function resolveRunDir(projectDir, explicitRunDir) {
   return runs.length > 0 ? path.join(latestDay, runs[0]) : null;
 }
 
-function main() {
+async function main() {
   const argv = yargs(hideBin(process.argv))
     .option('project-dir', { type: 'string', default: path.join(__dirname, '..') })
     .option('run-dir', { type: 'string', describe: 'Explicit run directory' })
@@ -183,7 +210,7 @@ function main() {
   const prompt = buildQualityPrompt(articleText, tweetsText, sourceUrl);
   let llmOutput;
   try {
-    llmOutput = callLLM(prompt);
+    llmOutput = await callLLM(prompt);
   } catch (e) {
     console.error(`[QUALITY] LLM call failed: ${e.message}`);
     // 降级：输出基础统计而非 LLM 评分
@@ -328,4 +355,7 @@ function appendBacklog(projectDir, report) {
   console.log(`[QUALITY] Backlog updated: ${lines.length} new issues`);
 }
 
-main();
+main().catch(err => {
+  console.error('[QUALITY] Fatal error:', err);
+  process.exit(1);
+});
