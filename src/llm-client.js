@@ -2,11 +2,11 @@
  * llm-client.js
  *
  * 多 Provider LLM 直连客户端。
- * 支持: Xiaomi (MiMo), DeepSeek, OpenAI, Gemini
+ * 支持: Xiaomi (MiMo), DeepSeek, OpenAI, Gemini, SiliconFlow
  * 默认: Xiaomi
  *
  * 配置通过 .env 文件:
- *   LLM_PROVIDER=xiaomi|deepseek|openai|gemini
+ *   LLM_PROVIDER=xiaomi|deepseek|openai|gemini|siliconflow
  *   LLM_BASE_URL=<api base url>
  *   LLM_API_KEY=<api key>
  *   LLM_MODEL=<model id>
@@ -57,6 +57,10 @@ const PROVIDER_DEFAULTS = {
   gemini: {
     baseUrl: 'https://generativelanguage.googleapis.com/v1beta',
     model: 'gemini-2.5-flash',
+  },
+  siliconflow: {
+    baseUrl: 'https://api.siliconflow.cn/v1',
+    model: 'deepseek-ai/DeepSeek-V3',
   },
 };
 
@@ -166,7 +170,7 @@ async function callLLM(prompt, timeoutSeconds = 120) {
     return callGemini(baseUrl, apiKey, model, prompt, timeoutSeconds);
   }
 
-  // Xiaomi, DeepSeek, OpenAI 都走 OpenAI 兼容格式
+  // Xiaomi, DeepSeek, OpenAI, SiliconFlow 都走 OpenAI 兼容格式
   return callOpenAICompatible(baseUrl, apiKey, model, prompt, timeoutSeconds);
 }
 
