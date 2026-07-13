@@ -16,3 +16,6 @@ data/youtube_monitor/logs/
 data/youtube_monitor/*.csv
 data/youtube_monitor/*.jsonl
 data/youtube_monitor/seen_video_ids.txt
+youtube-url-inbox.md
+youtube-url-inbox.consumed.md
+
