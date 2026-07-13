@@ -198,38 +198,18 @@ Rules:
 4. Output EXACTLY 4 upgraded tweets separated by "---". No intro/outro.`;
 }
 
+const { callLLM } = require('./llm-client');
+
 function runHermesVni(evidence, timeout) {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     const prompt = buildVniPrompt(evidence);
-    const args = ['agent', '--agent', 'main', '--message', prompt, '--timeout', String(timeout), '--thinking', 'low'];
-    console.log('[VNI] Calling Hermes for soul injection...');
-    const child = spawn('openclaw', args, {
-      stdio: ['ignore', 'pipe', 'pipe'],
-    });
-
-    let stdout = '', stderr = '';
-    child.stdout.on('data', d => { stdout += d; });
-    child.stderr.on('data', d => { stderr += d; });
-
-    const timer = setTimeout(() => { child.kill(); }, timeout * 1000);
-
-    child.on('close', (code) => {
-      clearTimeout(timer);
-      if (code !== 0) {
-        return reject(new Error(`Hermes VNI failed (exit ${code}): ${stderr || stdout}`));
-      }
-      try {
-        const out = JSON.parse(stdout);
-        resolve(out.reply || out.content || out.text || stdout);
-      } catch (e) {
-        resolve(stdout);
-      }
-    });
-
-    child.on('error', (err) => {
-      clearTimeout(timer);
+    console.log('[VNI] Calling Hermes for soul injection (via llm-client)...');
+    try {
+      const output = await callLLM(prompt, timeout);
+      resolve(output);
+    } catch (err) {
       reject(err);
-    });
+    }
   });
 }
 
