@@ -84,7 +84,7 @@ function runQualityInspection(projectDir, runDir) {
     child.stdout.on('data', d => { stdout += d; });
     child.stderr.on('data', d => { stderr += d; });
 
-    const timer = setTimeout(() => { child.kill(); }, 180000); // 3 min timeout
+    const timer = setTimeout(() => { child.kill(); }, 360000); // 6 min timeout
 
     child.on('close', (code) => {
       clearTimeout(timer);

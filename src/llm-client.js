@@ -142,7 +142,7 @@ async function callGemini(baseUrl, apiKey, model, prompt, timeoutSeconds) {
 
 // ─── 主入口 ────────────────────────────────────────────────────
 
-async function callLLM(prompt, timeoutSeconds = 120) {
+async function callLLM(prompt, timeoutSeconds = 300) {
   // 加载 .env（仅首次）
   if (!process.env._LLM_ENV_LOADED) {
     const envPath = require('path').join(__dirname, '..', '.env');
