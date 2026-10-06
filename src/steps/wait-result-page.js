@@ -28,6 +28,27 @@ async function waitResultPage(page, packManager) {
       const errScreenshotPath = packManager.pathManager.getFilePath('error-state-page.png');
       await page.screenshot({ path: errScreenshotPath, fullPage: true });
       packManager.addArtifact('resultPageScreenshot', errScreenshotPath);
+
+      // === DIAGNOSTIC: save page HTML snippet for post-mortem ===
+      try {
+        const htmlContent = await page.content();
+        const htmlSnippetPath = packManager.pathManager.getFilePath('error-state-page.html');
+        const fs = require('fs');
+        // Save first 50KB of HTML (enough to see structure, not bloated)
+        fs.writeFileSync(htmlSnippetPath, htmlContent.slice(0, 50000), 'utf-8');
+        packManager.addArtifact('errorPageHtml', htmlSnippetPath);
+        logger.info(`Error state HTML saved: ${htmlSnippetPath} (${htmlContent.length} chars total)`);
+
+        // Also save a text-only snapshot for quick inspection
+        const textContent = await page.evaluate(() => document.body?.innerText || '').catch(() => '');
+        const textSnippetPath = packManager.pathManager.getFilePath('error-state-text.txt');
+        fs.writeFileSync(textSnippetPath, textContent.slice(0, 20000), 'utf-8');
+        packManager.addArtifact('errorPageText', textSnippetPath);
+        logger.info(`Error state text saved: ${textSnippetPath}`);
+      } catch (diagErr) {
+        logger.warn(`Failed to save diagnostic artifacts: ${diagErr.message}`);
+      }
+
       return false;
     }
   } finally {

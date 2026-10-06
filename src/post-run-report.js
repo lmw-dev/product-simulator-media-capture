@@ -277,7 +277,7 @@ async function main() {
     msg += `\n\n🚀 [Hermes VNI] 灵魂注入成功\n${vniOutput.substring(0, 500)}...`;
   }
 
-  const r = spawnSync('openclaw', ['message', 'send', '--channel', 'discord', '--target', argv.channelId || DEFAULT_CHANNEL_ID, '--message', msg], {encoding:'utf-8'}); 
+  const r = spawnSync('openclaw', ['message', 'send', '--channel', 'discord', '--target', `channel:${argv.channelId || DEFAULT_CHANNEL_ID}`, '--message', msg], {encoding:'utf-8'});
   console.log(r.stdout || '');
   if (r.stderr) console.error(r.stderr);
   console.log('[REPORT] Dispatched to Discord.');
