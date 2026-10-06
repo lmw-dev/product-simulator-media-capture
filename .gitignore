@@ -19,3 +19,21 @@ data/youtube_monitor/seen_video_ids.txt
 youtube-url-inbox.md
 youtube-url-inbox.consumed.md
 
+# Runtime products (regenerated on every run)
+data/status-board-latest.json
+
+# Database backups
+data/*.bak-*
+
+# Empty stderr/stdout capture files
+/err
+/out
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Manual file backups
+*.bak
+
+
